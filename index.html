@@ -49,6 +49,28 @@
         }
         @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
 
+        /* Servicios y Secciones */
+        section { padding: 80px 20px; text-align: center; }
+        h2.section-title { font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase; }
+        
+        .services-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .service-card {
+            background: var(--glass-bg); padding: 30px; border-radius: 15px; width: 250px;
+            border: 2px solid; backdrop-filter: blur(5px); transition: 0.3s;
+        }
+        .card-pink { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255,0,127,0.3); }
+        .card-cyan { border-color: var(--neon-cyan); box-shadow: 0 0 15px rgba(0,255,255,0.3); }
+        .card-purple { border-color: #9d00ff; box-shadow: 0 0 15px rgba(157,0,255,0.3); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 0 25px currentColor; }
+
+        .btn-neon {
+            background: transparent; color: var(--neon-green); border: 2px solid var(--neon-green);
+            padding: 15px 30px; font-size: 1.2rem; border-radius: 30px; cursor: pointer;
+            text-transform: uppercase; font-weight: bold; margin-top: 20px; transition: 0.3s;
+            box-shadow: 0 0 10px var(--neon-green); text-decoration: none; display: inline-block;
+        }
+        .btn-neon:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 25px var(--neon-green); }
+
         /* Heladería y Toppings */
         .flavors-container, .toppings-container {
             display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px;
@@ -56,10 +78,11 @@
         .flavor-item {
             width: 150px; height: 150px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
             font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; border: 4px solid #fff;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5); /* Efecto 3D en la selección */
         }
-        .flavor-chocolate { background: linear-gradient(145deg, #6b4321, #3a2210); box-shadow: 0 0 20px #6b4321; }
-        .flavor-limon { background: linear-gradient(145deg, #a3ff47, #5eb800); box-shadow: 0 0 20px #8cff2b; color: #000; }
-        .flavor-fresa { background: linear-gradient(145deg, #ff66b3, #cc0066); box-shadow: 0 0 20px #ff3399; }
+        .flavor-chocolate { background: radial-gradient(circle at 30% 30%, #8b5a2b, #3a2210); box-shadow: 0 0 20px #6b4321; }
+        .flavor-limon { background: radial-gradient(circle at 30% 30%, #bfff70, #5eb800); box-shadow: 0 0 20px #8cff2b; color: #000; }
+        .flavor-fresa { background: radial-gradient(circle at 30% 30%, #ff99cc, #cc0066); box-shadow: 0 0 20px #ff3399; }
         .flavor-item:hover { transform: scale(1.1); }
 
         .topping-btn {
@@ -68,52 +91,111 @@
         }
         .topping-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 15px var(--neon-cyan); }
 
-        /* Animación del Helado Final */
+        /* Animación y Realismo del Helado */
         @keyframes jumpSpin {
             0% { transform: translateY(0) rotate(0deg); }
-            30% { transform: translateY(-80px) rotate(180deg); }
+            30% { transform: translateY(-100px) rotate(180deg); }
             50% { transform: translateY(0) rotate(360deg); }
             70% { transform: translateY(-30px) rotate(360deg); }
             100% { transform: translateY(0) rotate(360deg); }
         }
         @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(30deg); } }
 
+        /* La bola de helado 3D */
         .ice-cream-character {
-            width: 160px; height: 160px; border-radius: 50% 50% 10% 10%;
+            width: 170px; height: 170px; 
+            border-radius: 50%; /* Bola redonda */
             position: relative; margin: 40px auto 0; display: none;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), 0 0 30px rgba(255,255,255,0.2);
+            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.4), inset 5px 5px 20px rgba(255,255,255,0.6);
+            z-index: 2;
         }
-        .eyes { font-size: 45px; position: absolute; top: 30%; left: 50%; transform: translateX(-50%); }
-        .arm { font-size: 45px; position: absolute; top: 40%; right: -40px; animation: wave 0.8s infinite alternate; }
-        .topping-deco { font-size: 55px; position: absolute; top: -25px; left: 50%; transform: translateX(-50%); }
+        /* Borde inferior del helado derritiéndose/ondulado */
+        .ice-cream-character::after {
+            content: ''; position: absolute; bottom: -10px; left: -5%; width: 110%; height: 35px;
+            background: inherit; border-radius: 30px;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.4), 0 10px 10px rgba(0,0,0,0.2); z-index: -1;
+        }
+
+        /* Elementos del personaje */
+        .eyes { font-size: 45px; position: absolute; top: 35%; left: 50%; transform: translateX(-50%); z-index: 10; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
+        .arm { font-size: 45px; position: absolute; top: 40%; right: -35px; animation: wave 0.8s infinite alternate; z-index: 10; }
         
+        /* Clase para las partículas de toppings esparcidas */
+        .topping-particle { position: absolute; font-size: 25px; z-index: 5; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.4)); }
+
+        /* Cono tipo Galleta/Waffle */
         .cono {
-            width: 0; height: 0; border-left: 60px solid transparent; border-right: 60px solid transparent;
-            border-top: 120px solid #d4a373; margin: 0 auto; display: none; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5));
+            width: 110px; height: 150px;
+            background: #d4a373;
+            /* Textura de Waffle cruzada */
+            background-image: 
+                repeating-linear-gradient(45deg, rgba(139, 69, 19, 0.2) 0, rgba(139, 69, 19, 0.2) 3px, transparent 3px, transparent 15px),
+                repeating-linear-gradient(-45deg, rgba(139, 69, 19, 0.2) 0, rgba(139, 69, 19, 0.2) 3px, transparent 3px, transparent 15px);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            margin: -20px auto 0; /* Se mete debajo de la bola de helado */
+            display: none; position: relative; z-index: 1;
+            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+        }
+
+        @media (max-width: 768px) {
+            nav { flex-wrap: wrap; gap: 15px; padding: 10px; }
+            .hero { flex-direction: column; text-align: center; margin-top: 50px;}
+            .hero-text { text-align: center; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a onclick="mostrarPrincipal()">Inicio</a>
-        <a onclick="mostrarPrincipal()"><img src="image1.jpeg" alt="Logo" class="nav-logo"></a>
+        <a onclick="irASeccion('servicios')">Servicios</a>
+        <a onclick="irASeccion('inicio')"><img src="image1.jpeg" alt="Logo" class="nav-logo"></a>
         <a onclick="mostrarHeladeria()">Heladería</a>
+        <a onclick="irASeccion('contacto')">Contacto</a>
     </nav>
 
     <!-- VISTA PRINCIPAL -->
     <div id="vista-principal">
-        <header class="hero">
+        <header id="inicio" class="hero">
             <div class="hero-text">
                 <h1>COLORÉ LAB<br>& KIDS</h1>
                 <p style="font-size: 1.2rem; color: #ccc;">Donde la imaginación crea diversión sin límites.</p>
                 <button class="topping-btn" onclick="mostrarHeladeria()">Ir a la Heladería</button>
             </div>
             <div class="mascot-container">
-                <!-- NOTA: Cambiado a .png para cuando le quites el fondo -->
                 <img src="image0.png" alt="Mascota" class="mascot-img">
             </div>
         </header>
+
+        <section id="servicios">
+            <h2 class="section-title" style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card card-pink">
+                    <h3>Laboratorio de Slime</h3>
+                    <p>Crea tu propia masa mágica. Escoge colores, texturas, brillos y accesorios para un slime único.</p>
+                </div>
+                <div class="service-card card-cyan">
+                    <h3>Atención a Niños</h3>
+                    <p>Cuidado y entretenimiento con actividades sensoriales y creativas pensadas para los más pequeños.</p>
+                </div>
+                <div class="service-card card-purple">
+                    <h3>Fiestas Creativas</h3>
+                    <p>Llevamos nuestro taller a tus eventos infantiles para una experiencia inolvidable y súper divertida.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nueva Sección de Contacto SÓLO con WhatsApp -->
+        <section id="contacto" style="background: radial-gradient(circle at bottom, #1a0011 0%, var(--dark-bg) 70%);">
+            <h2 class="section-title" style="color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink);">Reserva tu Evento</h2>
+            <p style="font-size: 1.2rem; color: #ccc; max-width: 600px; margin: 0 auto 40px;">
+                ¿Quieres que llevemos la magia del laboratorio de slime o nuestra barra de helados a tu próxima fiesta? ¡Escríbenos y lo hacemos realidad!
+            </p>
+            <!-- REEMPLAZA EL NÚMERO 529510000000 POR EL TUYO -->
+            <a href="https://wa.me/529514082944?text=¡Hola!%20Me%20gustaría%20cotizar%20un%20evento%20con%20Coloré." 
+               target="_blank" class="btn-neon" style="background: var(--neon-green); color: #000; padding: 20px 40px; font-size: 1.5rem; border-radius: 50px;">
+                💬 Enviar WhatsApp
+            </a>
+        </section>
     </div>
 
     <!-- VISTA HELADERÍA -->
@@ -123,32 +205,39 @@
         
         <!-- Paso 1: Sabores -->
         <div class="flavors-container" id="seccion-sabores">
-            <div class="flavor-item flavor-chocolate" onclick="seleccionarSabor('Chocolate', 'linear-gradient(145deg, #6b4321, #3a2210)')">Chocolate</div>
-            <div class="flavor-item flavor-limon" onclick="seleccionarSabor('Limón', 'linear-gradient(145deg, #a3ff47, #5eb800)')">Limón</div>
-            <div class="flavor-item flavor-fresa" onclick="seleccionarSabor('Fresa', 'linear-gradient(145deg, #ff66b3, #cc0066)')">Fresa</div>
+            <div class="flavor-item flavor-chocolate" onclick="seleccionarSabor('Chocolate', 'radial-gradient(circle at 30% 30%, #8b5a2b, #3a2210)')">Chocolate</div>
+            <div class="flavor-item flavor-limon" onclick="seleccionarSabor('Limón', 'radial-gradient(circle at 30% 30%, #bfff70, #5eb800)')">Limón</div>
+            <div class="flavor-item flavor-fresa" onclick="seleccionarSabor('Fresa', 'radial-gradient(circle at 30% 30%, #ff99cc, #cc0066)')">Fresa</div>
         </div>
 
-        <!-- Paso 2: Toppings (Oculto al inicio) -->
+        <!-- Paso 2: Toppings -->
         <div id="seccion-toppings" style="display: none; margin-top: 40px;">
-            <p style="font-size: 1.2rem; color: var(--neon-cyan);">2. ¡Agrega un Topping!</p>
+            <p style="font-size: 1.2rem; color: var(--neon-cyan);">2. ¡Agrega tus Toppings!</p>
             <div class="toppings-container">
                 <button class="topping-btn" onclick="crearHelado('Galleta', '🍪')">🍪 Galleta</button>
                 <button class="topping-btn" onclick="crearHelado('Chispas', '🍫')">🍫 Chispas</button>
-                <button class="topping-btn" onclick="crearHelado('Fresas', '🍓')">🍓 Fresas frescas</button>
+                <button class="topping-btn" onclick="crearHelado('Fresas', '🍓')">🍓 Fresas</button>
                 <button class="topping-btn" onclick="crearHelado('M&Ms', '🍬')">🍬 M&Ms</button>
             </div>
         </div>
 
-        <!-- Paso 3: El Helado Animado -->
+        <!-- Paso 3: El Helado Animado y Realista -->
         <div id="resultado-helado" style="display: none; margin-top: 40px; padding-bottom: 50px;">
+            
             <div id="ice-cream-char" class="ice-cream-character">
-                <div class="topping-deco" id="topping-visual">🍪</div>
                 <div class="eyes">👀</div>
                 <div class="arm">👋</div>
+                <!-- Los toppings se inyectarán aquí vía JavaScript -->
             </div>
             <div class="cono" id="cono-visual"></div>
-            <h3 id="helado-msg" style="color: var(--neon-green); margin-top: 30px; font-size: 1.8rem;"></h3>
-            <button class="topping-btn" style="margin-top: 20px; border-color: var(--neon-pink);" onclick="reiniciarHeladeria()">Crear otro helado</button>
+            
+            <h3 id="helado-msg" style="color: var(--neon-green); margin-top: 40px; font-size: 1.8rem; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);"></h3>
+            
+            <div style="margin-top: 30px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                <button class="topping-btn" style="border-color: var(--neon-pink);" onclick="reiniciarHeladeria()">🔄 Crear otro helado</button>
+                <!-- Botón opcional para pedir ese helado específico -->
+                <a id="btn-pedir-helado" href="#" target="_blank" class="btn-neon" style="margin-top: 0; padding: 15px 25px;">🍦 ¡Quiero pedir este!</a>
+            </div>
         </div>
     </div>
 
@@ -156,15 +245,19 @@
         let saborElegido = '';
         let colorSabor = '';
 
+        // Función para volver a la página principal y hacer scroll automático a la sección
+        function irASeccion(id) {
+            document.getElementById('vista-heladeria').style.display = 'none';
+            document.getElementById('vista-principal').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
         function mostrarHeladeria() {
             document.getElementById('vista-principal').style.display = 'none';
             document.getElementById('vista-heladeria').style.display = 'block';
             window.scrollTo(0, 0);
-        }
-
-        function mostrarPrincipal() {
-            document.getElementById('vista-heladeria').style.display = 'none';
-            document.getElementById('vista-principal').style.display = 'block';
         }
 
         function seleccionarSabor(sabor, color) {
@@ -180,9 +273,32 @@
             const cono = document.getElementById('cono-visual');
             const msg = document.getElementById('helado-msg');
             
-            // Configurar colores y emojis
+            // Colorear el helado
             character.style.background = colorSabor;
-            document.getElementById('topping-visual').innerText = toppingEmoji;
+            
+            // Limpiar toppings anteriores (por si eligen crear otro sin recargar)
+            const toppingsViejos = character.querySelectorAll('.topping-particle');
+            toppingsViejos.forEach(t => t.remove());
+
+            // Crear 6-8 piezas de topping esparcidas aleatoriamente por la bola de helado
+            const cantidadToppings = Math.floor(Math.random() * 3) + 6; // Entre 6 y 8
+            for(let i = 0; i < cantidadToppings; i++) {
+                let particula = document.createElement('div');
+                particula.className = 'topping-particle';
+                particula.innerText = toppingEmoji;
+                
+                // Posiciones aleatorias dentro de la bola (dejando margen en los bordes)
+                let topPos = Math.random() * 60 + 5; // Entre 5% y 65% de altura
+                let leftPos = Math.random() * 70 + 10; // Entre 10% y 80% de ancho
+                let rotacion = Math.random() * 360;
+                let escala = Math.random() * 0.4 + 0.6; // Para que varíen en tamaño
+                
+                particula.style.top = topPos + '%';
+                particula.style.left = leftPos + '%';
+                particula.style.transform = `rotate(${rotacion}deg) scale(${escala})`;
+                
+                character.appendChild(particula);
+            }
             
             // Mostrar elementos
             document.getElementById('resultado-helado').style.display = 'block';
@@ -190,12 +306,18 @@
             cono.style.display = 'block';
             msg.innerText = `¡Hola! Soy tu helado de ${saborElegido} con ${toppingNombre} ✨`;
             
-            // Forzar el reinicio de la animación para que salte cada vez que eligen uno nuevo
+            // Configurar botón de WhatsApp personalizado para el helado
+            const btnPedir = document.getElementById('btn-pedir-helado');
+            const mensajeHelado = `¡Hola! Estaba jugando en su página y me gustaría pedir un helado de ${saborElegido} con ${toppingNombre}.`;
+            // REEMPLAZA ESTE NÚMERO TAMBIÉN
+            btnPedir.href = `https://wa.me/529510000000?text=${encodeURIComponent(mensajeHelado)}`;
+
+            // Forzar el reinicio de la animación de salto
             character.style.animation = 'none';
-            void character.offsetWidth; // Truco para reiniciar CSS
+            void character.offsetWidth; 
             character.style.animation = 'jumpSpin 1.5s ease-out';
             
-            // Hacer scroll suave hacia el helado
+            // Hacer scroll hacia el resultado final
             document.getElementById('resultado-helado').scrollIntoView({ behavior: 'smooth' });
         }
 
