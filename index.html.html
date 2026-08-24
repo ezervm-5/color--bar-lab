@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COLORÉ BAR & LAB</title>
+    <style>
+        /* Estilos generales */
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: #0b0c10; 
+            color: #ffffff; 
+            overflow-x: hidden; 
+        }
+
+        /* Sección principal con fondo animado */
+        .hero { 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            background: linear-gradient(-45deg, #0b0c10, #1a0033, #001a33, #33001a); 
+            background-size: 400% 400%; 
+            animation: gradientBG 15s ease infinite; 
+            text-align: center; 
+            padding: 20px; 
+        }
+
+        @keyframes gradientBG { 
+            0% {background-position: 0% 50%;} 
+            50% {background-position: 100% 50%;} 
+            100% {background-position: 0% 50%;} 
+        }
+
+        /* Título con efecto Neón */
+        h1 { 
+            font-size: 4.5rem; 
+            margin-bottom: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 5px; 
+            animation: neon 1.5s ease-in-out infinite alternate; 
+        }
+
+        @keyframes neon { 
+            from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073; } 
+            to { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073; } 
+        }
+
+        p { 
+            font-size: 1.2rem; 
+            color: #c5c6c7; 
+            max-width: 600px; 
+            margin-bottom: 40px; 
+            line-height: 1.6;
+        }
+
+        /* Botón interactivo */
+        .btn { 
+            padding: 15px 40px; 
+            font-size: 1.2rem; 
+            background: transparent; 
+            color: #00e6e6; 
+            border: 2px solid #00e6e6; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 0 10px #00e6e6; 
+            text-transform: uppercase; 
+            font-weight: bold; 
+        }
+
+        .btn:hover { 
+            background: #00e6e6; 
+            color: #0b0c10; 
+            box-shadow: 0 0 20px #00e6e6, 0 0 40px #00e6e6; 
+            transform: scale(1.05); 
+        }
+
+        /* Sección del menú interactivo */
+        .interactive-section { 
+            padding: 100px 20px; 
+            text-align: center; 
+            background: #0b0c10; 
+            min-height: 50vh;
+        }
+
+        .interactive-section h2 {
+            font-size: 2.5rem;
+            color: #00e6e6;
+            margin-bottom: 40px;
+        }
+
+        /* Tarjeta estilo cristal (Glassmorphism) */
+        .glass { 
+            background: rgba(255, 255, 255, 0.05); 
+            border: 1px solid rgba(255, 255, 255, 0.1); 
+            border-radius: 15px; 
+            padding: 50px; 
+            margin: 20px auto; 
+            max-width: 600px; 
+            backdrop-filter: blur(10px); 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+        }
+
+        .glass:hover { 
+            transform: translateY(-10px); 
+            background: rgba(255, 255, 255, 0.1); 
+            border-color: #e60073;
+        }
+
+        .glass h3 {
+            font-size: 2rem;
+            margin-top: 0;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Inicio / Portada -->
+    <div class="hero">
+        <h1>COLORÉ BAR & LAB</h1>
+        <p>Donde la mixología se encuentra con la ciencia. Descubre nuestra fórmula exacta para la noche perfecta.</p>
+        <button class="btn" onclick="descubrir()">Entrar al Laboratorio</button>
+    </div>
+
+    <!-- Sección Interactiva -->
+    <div class="interactive-section" id="lab">
+        <h2>Experimentos de la Casa</h2>
+        <div class="glass" onclick="mixDrink()">
+            <h3 id="drink-title">🧪 Toca aquí para crear una mezcla</h3>
+            <p id="drink-desc">El algoritmo del laboratorio seleccionará un cóctel especial para ti.</p>
+        </div>
+    </div>
+
+    <!-- Scripts de interactividad -->
+    <script>
+        // Función para hacer scroll suave a la siguiente sección
+        function descubrir() {
+            document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Función interactiva para generar tragos
+        function mixDrink() {
+            const drinks = [
+                { name: "Neon Elixir", desc: "Ginebra premium, tónica fluorescente bajo luz UV y una esfera de humo de romero." },
+                { name: "Plasma Shot", desc: "Mezcal artesanal infusionado con jalapeño, mango y polvo de oro comestible." },
+                { name: "Quantum Margarita", desc: "Margarita molecular con espuma de sal negra y perlas de limón deshidratado." },
+                { name: "Cyberpunk Tonic", desc: "Vodka, licor de violetas, cítricos y hielo seco para un efecto de niebla constante." }
+            ];
+            
+            // Elegir bebida al azar
+            const randomDrink = drinks[Math.floor(Math.random() * drinks.length)];
+            
+            // Actualizar textos
+            document.getElementById('drink-title').innerText = "🍹 " + randomDrink.name;
+            document.getElementById('drink-desc').innerText = randomDrink.desc;
+            
+            // Añadir un efecto visual al hacer clic
+            const card = document.querySelector('.glass');
+            card.style.boxShadow = "0 0 40px #e60073";
+            setTimeout(() => { 
+                card.style.boxShadow = "none"; 
+            }, 800);
+        }
+    </script>
+</body>
+</html>
