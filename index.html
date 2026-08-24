@@ -3,168 +3,321 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COLORÉ BAR & LAB</title>
+    <title>COLORÉ OAXACA BAR & LAB</title>
     <style>
-        /* Estilos generales */
-        body { 
-            margin: 0; 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: #0b0c10; 
-            color: #ffffff; 
-            overflow-x: hidden; 
+        /* Estilos generales y variables de colores neón */
+        :root {
+            --neon-pink: #ff007f;
+            --neon-cyan: #00ffff;
+            --neon-green: #39ff14;
+            --dark-bg: #07090f;
+            --glass-bg: rgba(20, 20, 30, 0.6);
         }
 
-        /* Sección principal con fondo animado */
-        .hero { 
-            height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-            align-items: center; 
-            background: linear-gradient(-45deg, #0b0c10, #1a0033, #001a33, #33001a); 
-            background-size: 400% 400%; 
-            animation: gradientBG 15s ease infinite; 
-            text-align: center; 
-            padding: 20px; 
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        @keyframes gradientBG { 
-            0% {background-position: 0% 50%;} 
-            50% {background-position: 100% 50%;} 
-            100% {background-position: 0% 50%;} 
+        /* Menú de Navegación */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(7, 9, 15, 0.9);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(255, 0, 127, 0.2);
+            gap: 30px;
         }
 
-        /* Título con efecto Neón */
-        h1 { 
-            font-size: 4.5rem; 
-            margin-bottom: 10px; 
-            text-transform: uppercase; 
-            letter-spacing: 5px; 
-            animation: neon 1.5s ease-in-out infinite alternate; 
-        }
-
-        @keyframes neon { 
-            from { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073; } 
-            to { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073; } 
-        }
-
-        p { 
-            font-size: 1.2rem; 
-            color: #c5c6c7; 
-            max-width: 600px; 
-            margin-bottom: 40px; 
-            line-height: 1.6;
-        }
-
-        /* Botón interactivo */
-        .btn { 
-            padding: 15px 40px; 
-            font-size: 1.2rem; 
-            background: transparent; 
-            color: #00e6e6; 
-            border: 2px solid #00e6e6; 
-            border-radius: 50px; 
-            cursor: pointer; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 0 10px #00e6e6; 
-            text-transform: uppercase; 
-            font-weight: bold; 
-        }
-
-        .btn:hover { 
-            background: #00e6e6; 
-            color: #0b0c10; 
-            box-shadow: 0 0 20px #00e6e6, 0 0 40px #00e6e6; 
-            transform: scale(1.05); 
-        }
-
-        /* Sección del menú interactivo */
-        .interactive-section { 
-            padding: 100px 20px; 
-            text-align: center; 
-            background: #0b0c10; 
-            min-height: 50vh;
-        }
-
-        .interactive-section h2 {
-            font-size: 2.5rem;
-            color: #00e6e6;
-            margin-bottom: 40px;
-        }
-
-        /* Tarjeta estilo cristal (Glassmorphism) */
-        .glass { 
-            background: rgba(255, 255, 255, 0.05); 
-            border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 15px; 
-            padding: 50px; 
-            margin: 20px auto; 
-            max-width: 600px; 
-            backdrop-filter: blur(10px); 
-            transition: all 0.3s ease; 
-            cursor: pointer; 
-        }
-
-        .glass:hover { 
-            transform: translateY(-10px); 
-            background: rgba(255, 255, 255, 0.1); 
-            border-color: #e60073;
-        }
-
-        .glass h3 {
-            font-size: 2rem;
-            margin-top: 0;
+        nav a {
             color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .nav-logo {
+            height: 70px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px var(--neon-pink);
+            transition: transform 0.3s;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.1);
+        }
+
+        /* Sección Hero (Portada con la mascota) */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 20px 20px;
+            background: radial-gradient(circle at center, #1a0b1c 0%, var(--dark-bg) 70%);
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            max-width: 500px;
+            text-align: left;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+        }
+
+        /* Animación del camaleón */
+        .mascot-container {
+            /* Primero entra desde la izquierda, luego flota */
+            animation: walkIn 1.5s ease-out forwards, float 3s ease-in-out infinite alternate 1.5s;
+            opacity: 0; 
+        }
+
+        .mascot-img {
+            width: 350px;
+            border-radius: 30px;
+            box-shadow: 0 0 25px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
+        }
+
+        @keyframes walkIn {
+            0% { transform: translateX(-150vw) rotate(-10deg); opacity: 0; }
+            80% { transform: translateX(10px) rotate(5deg); opacity: 1; }
+            100% { transform: translateX(0) rotate(0deg); opacity: 1; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-20px); }
+        }
+
+        /* Estilos de las secciones principales */
+        section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        h2.section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+        }
+
+        /* Sección Servicios */
+        .services-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            padding: 30px;
+            border-radius: 15px;
+            width: 250px;
+            border: 2px solid;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .card-pink { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255,0,127,0.3); }
+        .card-cyan { border-color: var(--neon-cyan); box-shadow: 0 0 15px rgba(0,255,255,0.3); }
+        .card-green { border-color: var(--neon-green); box-shadow: 0 0 15px rgba(57,255,20,0.3); }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px currentColor;
+        }
+
+        /* Sección Laboratorio */
+        #laboratorio {
+            background: radial-gradient(circle at top, #0b1a20 0%, var(--dark-bg) 70%);
+        }
+
+        .lab-box {
+            background: var(--glass-bg);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .lab-box:hover {
+            background: rgba(0, 255, 255, 0.1);
+            transform: scale(1.02);
+        }
+
+        .btn-neon {
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .btn-neon:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-green);
+        }
+
+        /* Sección Contacto */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .contact-form input, .contact-form textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--neon-pink);
+            color: #fff;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            box-shadow: 0 0 15px var(--neon-pink);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsividad para móviles */
+        @media (max-width: 768px) {
+            nav { flex-wrap: wrap; gap: 15px; padding: 10px; }
+            .hero { flex-direction: column; text-align: center; margin-top: 50px;}
+            .hero-text { text-align: center; }
+            .mascot-img { width: 250px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Navegación -->
+    <nav>
+        <a href="#servicios">Servicios</a>
+        <!-- Aquí llamamos a la imagen del logo -->
+        <a href="#inicio"><img src="image1.jpeg" alt="Coloré Logo" class="nav-logo"></a>
+        <a href="#laboratorio">Laboratorio</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
     <!-- Inicio / Portada -->
-    <div class="hero">
-        <h1>COLORÉ BAR & LAB</h1>
-        <p>Donde la mixología se encuentra con la ciencia. Descubre nuestra fórmula exacta para la noche perfecta.</p>
-        <button class="btn" onclick="descubrir()">Entrar al Laboratorio</button>
-    </div>
-
-    <!-- Sección Interactiva -->
-    <div class="interactive-section" id="lab">
-        <h2>Experimentos de la Casa</h2>
-        <div class="glass" onclick="mixDrink()">
-            <h3 id="drink-title">🧪 Toca aquí para crear una mezcla</h3>
-            <p id="drink-desc">El algoritmo del laboratorio seleccionará un cóctel especial para ti.</p>
+    <header id="inicio" class="hero">
+        <div class="hero-text">
+            <h1>COLORÉ OAXACA<br>BAR & LAB</h1>
+            <p style="font-size: 1.2rem; color: #ccc;">Donde la mixología se encuentra con la ciencia y los sabores de nuestra tierra.</p>
+            <button class="btn-neon" style="color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink);" onclick="document.getElementById('laboratorio').scrollIntoView();">Descubre la Magia</button>
         </div>
-    </div>
+        <div class="mascot-container">
+            <!-- Aquí llamamos a la mascota (camaleón) -->
+            <img src="image0.jpeg" alt="Mascota Coloré" class="mascot-img">
+        </div>
+    </header>
 
-    <!-- Scripts de interactividad -->
+    <!-- Sección 1: Servicios -->
+    <section id="servicios">
+        <h2 class="section-title" style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">Nuestros Servicios</h2>
+        <div class="services-grid">
+            <div class="service-card card-pink">
+                <h3>Mixología Molecular</h3>
+                <p>Bebidas que cambian de color, esferificaciones y humo. Una experiencia visual y de sabor única.</p>
+            </div>
+            <div class="service-card card-cyan">
+                <h3>Eventos Privados</h3>
+                <p>Llevamos nuestro laboratorio a tu fiesta. Barras iluminadas, shots de diseño y coctelería personalizada.</p>
+            </div>
+            <div class="service-card card-green">
+                <h3>Talleres Interactivos</h3>
+                <p>Aprende los secretos científicos detrás de tus tragos favoritos. ¡Conviértete en un alquimista por un día!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 2: Laboratorio Interactivo -->
+    <section id="laboratorio">
+        <h2 class="section-title" style="color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan);">Laboratorio Interactivo</h2>
+        <div class="lab-box" onclick="mixDrink()">
+            <h3 id="drink-title" style="font-size: 2rem;">🧪 Toca para crear una fórmula</h3>
+            <p id="drink-desc" style="color: #bbb; font-size: 1.1rem;">Nuestra IA mixológica seleccionará el experimento perfecto para tu noche.</p>
+            <button class="btn-neon" id="mix-btn">Mezclar Ingredientes</button>
+        </div>
+    </section>
+
+    <!-- Sección 3: Contacto -->
+    <section id="contacto" style="background: radial-gradient(circle at bottom, #1a0011 0%, var(--dark-bg) 70%);">
+        <h2 class="section-title" style="color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink);">Reserva tu Evento</h2>
+        <form class="contact-form" onsubmit="enviarFormulario(event)">
+            <input type="text" placeholder="Tu Nombre o Empresa" required>
+            <input type="email" placeholder="Correo Electrónico" required>
+            <textarea rows="5" placeholder="Cuéntanos sobre tu evento (Fecha, número de personas, etc.)" required></textarea>
+            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 10px;">Enviar Solicitud</button>
+        </form>
+    </section>
+
+    <!-- Scripts -->
     <script>
-        // Función para hacer scroll suave a la siguiente sección
-        function descubrir() {
-            document.getElementById('lab').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Función interactiva para generar tragos
+        // Función interactiva del Laboratorio (con toques de Oaxaca)
         function mixDrink() {
             const drinks = [
-                { name: "Neon Elixir", desc: "Ginebra premium, tónica fluorescente bajo luz UV y una esfera de humo de romero." },
-                { name: "Plasma Shot", desc: "Mezcal artesanal infusionado con jalapeño, mango y polvo de oro comestible." },
-                { name: "Quantum Margarita", desc: "Margarita molecular con espuma de sal negra y perlas de limón deshidratado." },
-                { name: "Cyberpunk Tonic", desc: "Vodka, licor de violetas, cítricos y hielo seco para un efecto de niebla constante." }
+                { name: "Mezcal Plasma Shot", desc: "Mezcal espadín artesanal infusionado con jamaica, coronado con polvo de oro comestible y humo de romero." },
+                { name: "Elixir Bioluminiscente", desc: "Ginebra con tónica UV, jarabe de poleo y perlas de limón que estallan en tu boca." },
+                { name: "Fusión de Alebrije", desc: "Un cóctel tricolor a base de ron blanco, curaçao azul, jugo de piña y un toque de sal de gusano." },
+                { name: "Cráter de Mitla", desc: "Vodka oscuro, licor de café de pluma hidalgo y hielo seco creando una niebla constante en tu copa." }
             ];
             
-            // Elegir bebida al azar
             const randomDrink = drinks[Math.floor(Math.random() * drinks.length)];
             
-            // Actualizar textos
-            document.getElementById('drink-title').innerText = "🍹 " + randomDrink.name;
+            document.getElementById('drink-title').innerText = "✨ " + randomDrink.name;
             document.getElementById('drink-desc').innerText = randomDrink.desc;
             
-            // Añadir un efecto visual al hacer clic
-            const card = document.querySelector('.glass');
-            card.style.boxShadow = "0 0 40px #e60073";
-            setTimeout(() => { 
-                card.style.boxShadow = "none"; 
-            }, 800);
+            const box = document.querySelector('.lab-box');
+            box.style.boxShadow = "0 0 40px var(--neon-cyan)";
+            setTimeout(() => { box.style.boxShadow = "0 0 20px rgba(0, 255, 255, 0.4)"; }, 800);
+        }
+
+        // Simulación de envío del formulario
+        function enviarFormulario(event) {
+            event.preventDefault();
+            alert("¡Mensaje enviado con éxito al laboratorio Coloré! Nos pondremos en contacto contigo pronto.");
+            event.target.reset();
         }
     </script>
 </body>
