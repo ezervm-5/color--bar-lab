@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COLORÉ OAXACA BAR & LAB</title>
+    <title>COLORÉ - Diversión, Slime & Helados</title>
     <style>
-        /* Estilos generales y variables de colores neón */
+        /* Estilos generales y variables de colores vibrantes y divertidos */
         :root {
             --neon-pink: #ff007f;
             --neon-cyan: #00ffff;
             --neon-green: #39ff14;
+            --neon-purple: #9d00ff;
             --dark-bg: #07090f;
             --glass-bg: rgba(20, 20, 30, 0.6);
         }
@@ -46,6 +47,7 @@
             font-size: 1.1rem;
             text-transform: uppercase;
             transition: all 0.3s;
+            cursor: pointer;
         }
 
         nav a:hover {
@@ -64,7 +66,11 @@
             transform: scale(1.1);
         }
 
-        /* Sección Hero (Portada con la mascota) */
+        /* Contenedores Principales para cambiar de vista */
+        #vista-principal { display: block; }
+        #vista-heladeria { display: none; padding-top: 120px; min-height: 100vh; text-align: center; }
+
+        /* Sección Hero (Portada) */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -76,150 +82,77 @@
             flex-wrap: wrap;
         }
 
-        .hero-text {
-            max-width: 500px;
-            text-align: left;
-        }
-
+        .hero-text { max-width: 500px; text-align: left; }
         .hero-text h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            color: #fff;
+            font-size: 3.5rem; margin-bottom: 10px; color: #fff;
             text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
         }
 
         /* Animación del camaleón */
-        .mascot-container {
-            /* Primero entra desde la izquierda, luego flota */
-            animation: walkIn 1.5s ease-out forwards, float 3s ease-in-out infinite alternate 1.5s;
-            opacity: 0; 
-        }
-
-        .mascot-img {
-            width: 350px;
-            border-radius: 30px;
-            box-shadow: 0 0 25px var(--neon-cyan), inset 0 0 10px var(--neon-cyan);
-        }
+        .mascot-container { animation: walkIn 1.5s ease-out forwards, float 3s ease-in-out infinite alternate 1.5s; opacity: 0; }
+        .mascot-img { width: 350px; border-radius: 30px; box-shadow: 0 0 25px var(--neon-cyan), inset 0 0 10px var(--neon-cyan); }
 
         @keyframes walkIn {
             0% { transform: translateX(-150vw) rotate(-10deg); opacity: 0; }
             80% { transform: translateX(10px) rotate(5deg); opacity: 1; }
             100% { transform: translateX(0) rotate(0deg); opacity: 1; }
         }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(-20px); }
-        }
+        @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
 
         /* Estilos de las secciones principales */
-        section {
-            padding: 80px 20px;
-            text-align: center;
-        }
+        section { padding: 80px 20px; text-align: center; }
+        h2.section-title { font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase; }
 
-        h2.section-title {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-        }
-
-        /* Sección Servicios */
-        .services-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
+        /* Servicios */
+        .services-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         .service-card {
-            background: var(--glass-bg);
-            padding: 30px;
-            border-radius: 15px;
-            width: 250px;
-            border: 2px solid;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+            background: var(--glass-bg); padding: 30px; border-radius: 15px; width: 250px;
+            border: 2px solid; backdrop-filter: blur(5px); transition: 0.3s;
         }
-
         .card-pink { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255,0,127,0.3); }
         .card-cyan { border-color: var(--neon-cyan); box-shadow: 0 0 15px rgba(0,255,255,0.3); }
-        .card-green { border-color: var(--neon-green); box-shadow: 0 0 15px rgba(57,255,20,0.3); }
+        .card-purple { border-color: var(--neon-purple); box-shadow: 0 0 15px rgba(157,0,255,0.3); }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 0 25px currentColor; }
 
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 25px currentColor;
-        }
-
-        /* Sección Laboratorio */
-        #laboratorio {
-            background: radial-gradient(circle at top, #0b1a20 0%, var(--dark-bg) 70%);
-        }
-
+        /* Laboratorio de Slime */
         .lab-box {
-            background: var(--glass-bg);
-            border: 2px solid var(--neon-cyan);
-            border-radius: 20px;
-            padding: 40px;
-            max-width: 600px;
-            margin: 0 auto;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            cursor: pointer;
-            transition: all 0.3s;
+            background: var(--glass-bg); border: 2px solid var(--neon-cyan); border-radius: 20px;
+            padding: 40px; max-width: 600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            cursor: pointer; transition: all 0.3s;
         }
-
-        .lab-box:hover {
-            background: rgba(0, 255, 255, 0.1);
-            transform: scale(1.02);
-        }
+        .lab-box:hover { background: rgba(0, 255, 255, 0.1); transform: scale(1.02); }
 
         .btn-neon {
-            background: transparent;
-            color: var(--neon-green);
-            border: 2px solid var(--neon-green);
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: 0.3s;
+            background: transparent; color: var(--neon-green); border: 2px solid var(--neon-green);
+            padding: 15px 30px; font-size: 1.2rem; border-radius: 30px; cursor: pointer;
+            text-transform: uppercase; font-weight: bold; margin-top: 20px; transition: 0.3s;
             box-shadow: 0 0 10px var(--neon-green);
         }
+        .btn-neon:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 25px var(--neon-green); }
 
-        .btn-neon:hover {
-            background: var(--neon-green);
-            color: #000;
-            box-shadow: 0 0 25px var(--neon-green);
-        }
-
-        /* Sección Contacto */
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
+        /* Formulario de Contacto */
+        .contact-form { display: flex; flex-direction: column; gap: 20px; max-width: 500px; margin: 0 auto; }
         .contact-form input, .contact-form textarea {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--neon-pink);
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 1rem;
-            outline: none;
-            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid var(--neon-pink); color: #fff;
+            padding: 15px; border-radius: 10px; font-size: 1rem; outline: none; transition: 0.3s;
         }
+        .contact-form input:focus, .contact-form textarea:focus { box-shadow: 0 0 15px var(--neon-pink); background: rgba(255, 255, 255, 0.1); }
 
-        .contact-form input:focus, .contact-form textarea:focus {
-            box-shadow: 0 0 15px var(--neon-pink);
-            background: rgba(255, 255, 255, 0.1);
+        /* ---------- ESTILOS DE HELADERÍA ---------- */
+        .flavors-container {
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-top: 50px;
         }
+        .flavor-item {
+            width: 180px; height: 180px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; font-weight: bold; cursor: pointer; transition: all 0.3s; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+            border: 4px solid #fff;
+        }
+        .flavor-chocolate { background: linear-gradient(145deg, #6b4321, #3a2210); box-shadow: 0 0 20px #6b4321; }
+        .flavor-limon { background: linear-gradient(145deg, #a3ff47, #5eb800); box-shadow: 0 0 20px #8cff2b; color: #000; text-shadow: none;}
+        .flavor-fresa { background: linear-gradient(145deg, #ff66b3, #cc0066); box-shadow: 0 0 20px #ff3399; }
+        
+        .flavor-item:hover { transform: scale(1.15) rotate(5deg); box-shadow: 0 0 40px currentColor; }
 
-        /* Responsividad para móviles */
         @media (max-width: 768px) {
             nav { flex-wrap: wrap; gap: 15px; padding: 10px; }
             .hero { flex-direction: column; text-align: center; margin-top: 50px;}
@@ -232,92 +165,138 @@
 
     <!-- Navegación -->
     <nav>
-        <a href="#servicios">Servicios</a>
-        <!-- Aquí llamamos a la imagen del logo -->
-        <a href="#inicio"><img src="image1.jpeg" alt="Coloré Logo" class="nav-logo"></a>
-        <a href="#laboratorio">Laboratorio</a>
-        <a href="#contacto">Contacto</a>
+        <a onclick="mostrarPrincipal()">Servicios</a>
+        <a onclick="mostrarPrincipal()"><img src="image1.jpeg" alt="Coloré Logo" class="nav-logo"></a>
+        <a onclick="mostrarHeladeria()">Heladería</a>
+        <a onclick="mostrarPrincipal()" href="#contacto">Contacto</a>
     </nav>
 
-    <!-- Inicio / Portada -->
-    <header id="inicio" class="hero">
-        <div class="hero-text">
-            <h1>COLORÉ OAXACA<br>BAR & LAB</h1>
-            <p style="font-size: 1.2rem; color: #ccc;">Donde la mixología se encuentra con la ciencia y los sabores de nuestra tierra.</p>
-            <button class="btn-neon" style="color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink);" onclick="document.getElementById('laboratorio').scrollIntoView();">Descubre la Magia</button>
-        </div>
-        <div class="mascot-container">
-            <!-- Aquí llamamos a la mascota (camaleón) -->
-            <img src="image0.jpeg" alt="Mascota Coloré" class="mascot-img">
-        </div>
-    </header>
-
-    <!-- Sección 1: Servicios -->
-    <section id="servicios">
-        <h2 class="section-title" style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">Nuestros Servicios</h2>
-        <div class="services-grid">
-            <div class="service-card card-pink">
-                <h3>Mixología Molecular</h3>
-                <p>Bebidas que cambian de color, esferificaciones y humo. Una experiencia visual y de sabor única.</p>
+    <!-- VISTA 1: PRINCIPAL (SLIME Y EVENTOS) -->
+    <div id="vista-principal">
+        
+        <!-- Portada -->
+        <header id="inicio" class="hero">
+            <div class="hero-text">
+                <h1>COLORÉ LAB<br>& KIDS</h1>
+                <p style="font-size: 1.2rem; color: #ccc;">Donde la imaginación, los colores y la ciencia se mezclan para crear diversión sin límites.</p>
+                <button class="btn-neon" style="color: var(--neon-pink); border-color: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink);" onclick="document.getElementById('laboratorio').scrollIntoView();">Crea tu Slime</button>
             </div>
-            <div class="service-card card-cyan">
-                <h3>Eventos Privados</h3>
-                <p>Llevamos nuestro laboratorio a tu fiesta. Barras iluminadas, shots de diseño y coctelería personalizada.</p>
+            <div class="mascot-container">
+                <img src="image0.jpeg" alt="Mascota Coloré" class="mascot-img">
             </div>
-            <div class="service-card card-green">
-                <h3>Talleres Interactivos</h3>
-                <p>Aprende los secretos científicos detrás de tus tragos favoritos. ¡Conviértete en un alquimista por un día!</p>
+        </header>
+
+        <!-- Servicios -->
+        <section id="servicios">
+            <h2 class="section-title" style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card card-pink">
+                    <h3>Laboratorio de Slime</h3>
+                    <p>Crea tu propia masa mágica. Escoge colores, texturas, brillos y accesorios para un slime único.</p>
+                </div>
+                <div class="service-card card-cyan">
+                    <h3>Atención a Niños</h3>
+                    <p>Cuidado y entretenimiento con actividades sensoriales y creativas pensadas para los más pequeños.</p>
+                </div>
+                <div class="service-card card-purple">
+                    <h3>Fiestas Creativas</h3>
+                    <p>Llevamos nuestro taller a tus eventos infantiles para una experiencia inolvidable y súper divertida.</p>
+                </div>
             </div>
+        </section>
+
+        <!-- Laboratorio Interactivo -->
+        <section id="laboratorio">
+            <h2 class="section-title" style="color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan);">Generador de Slime</h2>
+            <div class="lab-box" onclick="generarSlime()">
+                <h3 id="slime-title" style="font-size: 2rem;">🧪 Toca aquí para una receta</h3>
+                <p id="slime-desc" style="color: #bbb; font-size: 1.1rem;">Nuestra máquina seleccionará la fórmula secreta para tu próximo slime.</p>
+                <button class="btn-neon" id="mix-btn">Mezclar Ingredientes</button>
+            </div>
+        </section>
+
+        <!-- Contacto -->
+        <section id="contacto" style="background: radial-gradient(circle at bottom, #1a0011 0%, var(--dark-bg) 70%);">
+            <h2 class="section-title" style="color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink);">Cotiza tu Evento</h2>
+            <form class="contact-form" id="contacto-form" onsubmit="enviarAWhatsapp(event)">
+                <input type="text" id="nombre" placeholder="Nombre de mamá, papá o tutor" required>
+                <input type="email" id="correo" placeholder="Correo Electrónico (opcional)">
+                <textarea id="mensaje" rows="5" placeholder="¿Qué necesitas? (Ej. Fiesta infantil para 15 niños, fecha, etc.)" required></textarea>
+                <button type="submit" class="btn-neon" style="width: 100%; border-radius: 10px; background: var(--neon-green); color: #000;">Contactar por WhatsApp</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- VISTA 2: HELADERÍA (Funciona como página nueva) -->
+    <div id="vista-heladeria">
+        <h2 class="section-title" style="color: #fff; text-shadow: 0 0 15px var(--neon-pink);">BARRA DE SABORES</h2>
+        <p style="font-size: 1.2rem; color: #ccc;">Toca tu sabor favorito para hacer tu pedido</p>
+        
+        <div class="flavors-container">
+            <div class="flavor-item flavor-chocolate" onclick="seleccionarSabor('Chocolate')">Chocolate</div>
+            <div class="flavor-item flavor-limon" onclick="seleccionarSabor('Limón')">Limón</div>
+            <div class="flavor-item flavor-fresa" onclick="seleccionarSabor('Fresa')">Fresa</div>
         </div>
-    </section>
+    </div>
 
-    <!-- Sección 2: Laboratorio Interactivo -->
-    <section id="laboratorio">
-        <h2 class="section-title" style="color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan);">Laboratorio Interactivo</h2>
-        <div class="lab-box" onclick="mixDrink()">
-            <h3 id="drink-title" style="font-size: 2rem;">🧪 Toca para crear una fórmula</h3>
-            <p id="drink-desc" style="color: #bbb; font-size: 1.1rem;">Nuestra IA mixológica seleccionará el experimento perfecto para tu noche.</p>
-            <button class="btn-neon" id="mix-btn">Mezclar Ingredientes</button>
-        </div>
-    </section>
-
-    <!-- Sección 3: Contacto -->
-    <section id="contacto" style="background: radial-gradient(circle at bottom, #1a0011 0%, var(--dark-bg) 70%);">
-        <h2 class="section-title" style="color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink);">Reserva tu Evento</h2>
-        <form class="contact-form" onsubmit="enviarFormulario(event)">
-            <input type="text" placeholder="Tu Nombre o Empresa" required>
-            <input type="email" placeholder="Correo Electrónico" required>
-            <textarea rows="5" placeholder="Cuéntanos sobre tu evento (Fecha, número de personas, etc.)" required></textarea>
-            <button type="submit" class="btn-neon" style="width: 100%; border-radius: 10px;">Enviar Solicitud</button>
-        </form>
-    </section>
-
-    <!-- Scripts -->
+    <!-- Scripts de interactividad y navegación -->
     <script>
-        // Función interactiva del Laboratorio (con toques de Oaxaca)
-        function mixDrink() {
-            const drinks = [
-                { name: "Mezcal Plasma Shot", desc: "Mezcal espadín artesanal infusionado con jamaica, coronado con polvo de oro comestible y humo de romero." },
-                { name: "Elixir Bioluminiscente", desc: "Ginebra con tónica UV, jarabe de poleo y perlas de limón que estallan en tu boca." },
-                { name: "Fusión de Alebrije", desc: "Un cóctel tricolor a base de ron blanco, curaçao azul, jugo de piña y un toque de sal de gusano." },
-                { name: "Cráter de Mitla", desc: "Vodka oscuro, licor de café de pluma hidalgo y hielo seco creando una niebla constante en tu copa." }
+        // Funciones para simular el cambio de página
+        function mostrarHeladeria() {
+            document.getElementById('vista-principal').style.display = 'none';
+            document.getElementById('vista-heladeria').style.display = 'block';
+            window.scrollTo(0, 0); // Sube la pantalla arriba
+        }
+
+        function mostrarPrincipal() {
+            document.getElementById('vista-heladeria').style.display = 'none';
+            document.getElementById('vista-principal').style.display = 'block';
+        }
+
+        // Función interactiva de Slime
+        function generarSlime() {
+            const slimes = [
+                { name: "Slime Galáctico", desc: "Color negro morado con muchísima diamantina de estrellas." },
+                { name: "Slime Nube Esponjoso", desc: "Textura ultra suave como malvavisco, color azul pastel." },
+                { name: "Slime Crunch de Colores", desc: "Base transparente llena de bolitas de unicel neón que truenan al apretar." },
+                { name: "Slime Glow in the Dark", desc: "Fórmula especial verde radioactivo que brilla en la oscuridad." }
             ];
             
-            const randomDrink = drinks[Math.floor(Math.random() * drinks.length)];
-            
-            document.getElementById('drink-title').innerText = "✨ " + randomDrink.name;
-            document.getElementById('drink-desc').innerText = randomDrink.desc;
+            const random = slimes[Math.floor(Math.random() * slimes.length)];
+            document.getElementById('slime-title').innerText = "✨ " + random.name;
+            document.getElementById('slime-desc').innerText = random.desc;
             
             const box = document.querySelector('.lab-box');
             box.style.boxShadow = "0 0 40px var(--neon-cyan)";
             setTimeout(() => { box.style.boxShadow = "0 0 20px rgba(0, 255, 255, 0.4)"; }, 800);
         }
 
-        // Simulación de envío del formulario
-        function enviarFormulario(event) {
-            event.preventDefault();
-            alert("¡Mensaje enviado con éxito al laboratorio Coloré! Nos pondremos en contacto contigo pronto.");
-            event.target.reset();
+        // Función para enviar mensaje a WhatsApp
+        function enviarAWhatsapp(event) {
+            event.preventDefault(); // Evita que la página se recargue
+
+            // Recolectar datos del formulario
+            const nombre = document.getElementById('nombre').value;
+            const mensaje = document.getElementById('mensaje').value;
+
+            // PON TU NÚMERO AQUÍ (con código de país, ej. 52 para México)
+            const telefono = "529510000000"; 
+            
+            // Crear el mensaje de WhatsApp
+            const textoWhatsapp = `¡Hola! Soy ${nombre}. %0A%0ATe escribo desde la página web de Coloré:%0A${mensaje}`;
+            
+            // Lógica para guardar en Google Sheets iría aquí en el futuro usando fetch()
+
+            alert("¡Todo listo! Te redirigiremos a WhatsApp para completar tu mensaje.");
+            
+            // Abrir WhatsApp
+            window.open(`https://wa.me/${telefono}?text=${textoWhatsapp}`, '_blank');
+            event.target.reset(); // Limpia el formulario
+        }
+
+        // Interacción visual en la heladería
+        function seleccionarSabor(sabor) {
+            alert(`¡Has seleccionado un delicioso helado de ${sabor}!`);
         }
     </script>
 </body>
