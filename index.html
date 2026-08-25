@@ -92,7 +92,7 @@
         }
         .btn-ingrediente:hover { transform: scale(1.1); background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        .area-mezcla { position: relative; height: 250px; display: flex; justify-content: center; align-items: flex-end; }
+        .area-mezcla { position: relative; height: 270px; display: flex; justify-content: center; align-items: flex-end; }
         
         /* El Tazón */
         .tazon {
@@ -105,19 +105,40 @@
             background: #e9ecef; transition: height 0.5s, background-color 0.5s;
         }
 
-        /* El Slime Animado (Oculto al inicio) */
+        /* ----- NUEVO SLIME ESTILO GLOSSY 3D ----- */
         .monstruo-slime {
-            width: 140px; height: 120px; background: var(--pastel-green);
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Forma irregular de slime */
+            width: 130px; height: 140px; background: var(--pastel-green);
+            border-radius: 45% 55% 40% 40% / 55% 45% 60% 60%; /* Forma tipo gota */
             position: absolute; bottom: 20px; display: none; z-index: 3;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1);
+            /* Efecto brillante 3D parecido a la imagen */
+            box-shadow: 
+                inset 15px 15px 20px rgba(255,255,255,0.7), /* Brillo superior izquierdo */
+                inset -10px -15px 20px rgba(0,0,0,0.15), /* Sombra interior */
+                0 10px 15px rgba(0,0,0,0.1); /* Sombra en el piso */
             animation: respirarSlime 2s infinite alternate, saltarSlime 1s ease-out;
         }
-        .monstruo-slime .cara { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); font-size: 35px; width: 100%; text-align: center; }
+
+        /* Charquito de slime debajo */
+        .monstruo-slime::after {
+            content: ''; position: absolute; bottom: -10px; left: -15%; width: 130%; height: 35px;
+            background: inherit; border-radius: 50%; z-index: -1;
+            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Brillo blanco tipo cristal en la cabeza */
+        .monstruo-slime::before {
+            content: ''; position: absolute; top: 15px; left: 20px; width: 30px; height: 15px;
+            background: rgba(255,255,255,0.8); border-radius: 50%; transform: rotate(-20deg); z-index: 2;
+        }
+
+        .monstruo-slime .cara { 
+            position: absolute; top: 35%; left: 50%; transform: translateX(-50%); 
+            font-size: 45px; width: 100%; text-align: center; z-index: 4; text-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+        }
 
         @keyframes temblar { 0% { transform: translateX(0); } 25% { transform: translateX(-5px) rotate(-5deg); } 50% { transform: translateX(5px) rotate(5deg); } 75% { transform: translateX(-5px) rotate(-5deg); } 100% { transform: translateX(0); } }
-        @keyframes respirarSlime { 0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } 100% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; } }
-        @keyframes saltarSlime { 0% { bottom: -50px; transform: scaleY(0.5); } 50% { bottom: 100px; transform: scaleY(1.2); } 100% { bottom: 20px; transform: scaleY(1); } }
+        @keyframes respirarSlime { 0% { border-radius: 45% 55% 40% 40% / 55% 45% 60% 60%; } 100% { border-radius: 55% 45% 50% 50% / 45% 55% 50% 50%; } }
+        @keyframes saltarSlime { 0% { bottom: -50px; transform: scaleY(0.5); } 50% { bottom: 120px; transform: scaleY(1.1); } 100% { bottom: 20px; transform: scaleY(1); } }
 
         /* Heladería */
         .flavors-container, .toppings-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
@@ -139,8 +160,6 @@
 
         /* Helado 3D Animado */
         @keyframes jumpSpin { 0% { transform: translateY(0) rotate(0deg); } 30% { transform: translateY(-100px) rotate(-180deg); } 50% { transform: translateY(0) rotate(-360deg); } 70% { transform: translateY(-30px) rotate(-360deg); } 100% { transform: translateY(0) rotate(-360deg); } }
-        
-        /* BRAZO CORREGIDO AL LADO IZQUIERDO */
         @keyframes waveLeft { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
 
         .ice-cream-character {
@@ -153,15 +172,7 @@
         }
 
         .eyes { font-size: 45px; position: absolute; top: 35%; left: 50%; transform: translateX(-50%); z-index: 10; }
-        
-        /* Ajuste de brazo a la izquierda */
-        .arm { 
-            font-size: 45px; position: absolute; top: 40%; 
-            left: -35px; /* Movido a la izquierda */
-            transform-origin: bottom right; /* Eje de rotación para que salude natural */
-            animation: waveLeft 0.8s infinite alternate; z-index: 10; 
-        }
-        
+        .arm { font-size: 45px; position: absolute; top: 40%; left: -35px; transform-origin: bottom right; animation: waveLeft 0.8s infinite alternate; z-index: 10; }
         .topping-particle { position: absolute; font-size: 25px; z-index: 5; }
 
         .cono {
@@ -214,27 +225,25 @@
             </div>
         </section>
 
-        <!-- NUEVO JUEGO DE SLIME -->
+        <!-- JUEGO DE SLIME -->
         <section id="juego-slime" style="background: var(--pastel-yellow);">
             <h2 class="section-title">🧪 El Mezclador Mágico</h2>
             <p style="font-size: 1.2rem; margin-bottom: 30px;">Agrega los ingredientes al tazón y presiona Mezclar para ver la magia.</p>
             
             <div class="juego-slime-container">
-                <!-- Botones de ingredientes -->
                 <div class="ingredientes">
                     <button class="btn-ingrediente" onclick="agregarBase()">🧴 Pegamento</button>
-                    <button class="btn-ingrediente" onclick="agregarColor('#ffc2d1')">💖 Gotas Rosas</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('#ff758f')">💖 Gotas Rosas</button>
                     <button class="btn-ingrediente" onclick="agregarColor('#caffbf')">💚 Gotas Verdes</button>
                     <button class="btn-ingrediente" onclick="agregarColor('#a0c4ff')">💙 Gotas Azules</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('#ffd670')">💛 Gotas Amarillas</button>
                     <button class="btn-ingrediente" onclick="agregarBrillos()">✨ Brillos</button>
                 </div>
 
-                <!-- Tazón y Animación -->
                 <div class="area-mezcla">
                     <div class="tazon" id="el-tazon">
                         <div class="liquido" id="liquido-tazon"></div>
                     </div>
-                    <!-- Slime que salta -->
                     <div class="monstruo-slime" id="monstruo-resultado">
                         <div class="cara" id="cara-slime">😃</div>
                     </div>
@@ -312,6 +321,9 @@
         let nivelPegamento = 0;
         let colorSlimeActual = "#ffffff";
         let tieneBrillos = false;
+        
+        // Diferentes caras lindas para el slime (como en la foto)
+        const carasTiernas = ["🥺", "😋", "🤪", "😍", "🤭", "😎", "🤩", "🥰"];
 
         function agregarBase() {
             nivelPegamento = 60;
@@ -341,43 +353,39 @@
             const monstruo = document.getElementById('monstruo-resultado');
             const cara = document.getElementById('cara-slime');
             
-            // Ocultar monstruo por si ya había uno
             monstruo.style.display = 'none';
-            
-            // Animación de temblar tazón
             tazon.style.animation = "temblar 0.5s infinite";
             
             setTimeout(() => {
                 tazon.style.animation = "none";
-                tazon.style.display = "none"; // Desaparece el tazón
+                tazon.style.display = "none"; 
                 
-                // Configurar monstruo
                 monstruo.style.backgroundColor = colorSlimeActual;
+                
+                // Elegir una cara al azar
+                let caraAzar = carasTiernas[Math.floor(Math.random() * carasTiernas.length)];
+                
                 if(tieneBrillos) {
                     monstruo.style.backgroundImage = "radial-gradient(rgba(255,255,255,0.8) 15%, transparent 16%), radial-gradient(rgba(255,255,255,0.8) 15%, transparent 16%)";
                     monstruo.style.backgroundSize = "20px 20px";
                     monstruo.style.backgroundPosition = "0 0, 10px 10px";
-                    cara.innerText = "🤩"; // Cara emocionada si tiene brillos
+                    cara.innerText = "✨" + caraAzar + "✨";
                 } else {
                     monstruo.style.backgroundImage = "none";
-                    cara.innerText = "😃";
+                    cara.innerText = caraAzar;
                 }
                 
-                // Mostrar monstruo saltando
                 monstruo.style.display = "block";
                 
-                // Reiniciar juego después de 5 segundos
                 setTimeout(() => {
                     monstruo.style.display = "none";
                     tazon.style.display = "block";
-                    nivelPegamento = 0;
-                    tieneBrillos = false;
-                    colorSlimeActual = "#ffffff";
+                    nivelPegamento = 0; tieneBrillos = false; colorSlimeActual = "#ffffff";
                     document.getElementById('liquido-tazon').style.height = "0%";
                     document.getElementById('liquido-tazon').style.backgroundImage = "none";
                 }, 6000);
                 
-            }, 1500); // Tiembla por 1.5 segundos
+            }, 1500);
         }
 
         /* ================= HELADERÍA ================= */
