@@ -94,7 +94,6 @@
         
         .area-mezcla { position: relative; height: 320px; display: flex; justify-content: center; align-items: flex-end; }
         
-        /* El Tazón */
         .tazon {
             width: 200px; height: 100px; background: rgba(255, 255, 255, 0.5);
             border: 5px solid #ced4da; border-radius: 10px 10px 100px 100px;
@@ -105,18 +104,35 @@
             background: #e9ecef; transition: height 0.5s, background-color 0.5s;
         }
 
-        /* ===== NUEVA ANIMACIÓN DINÁMICA PARA LAS IMÁGENES ===== */
-        .monstruo-animado {
-            width: 180px; /* Tamaño del slime */
+        /* ===== CONTENEDOR Y ANIMACIÓN DEL SLIME ===== */
+        .contenedor-monstruo {
             position: absolute; 
             bottom: 20px; 
             display: none; 
             z-index: 3;
-            transform-origin: bottom center; /* Para que se aplaste desde el suelo */
-            filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2));
-            /* Combina el salto inicial y la respiración infinita */
+            transform-origin: bottom center;
+            /* La animación de salto y respiración van en el contenedor */
             animation: aparecerSlime 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
                        respirarImg 2s infinite alternate 1s;
+        }
+
+        /* Imagen del slime interactiva */
+        .img-slime {
+            width: 180px; 
+            filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2)); 
+            cursor: pointer;
+            transition: transform 0.1s; /* Suaviza el click */
+        }
+
+        /* Reacción al darle clic (Apachurrarse) */
+        .click-reaction {
+            animation: apachurrar 0.3s ease !important;
+        }
+
+        @keyframes apachurrar {
+            0% { transform: scale(1, 1); }
+            50% { transform: scale(1.2, 0.8); } /* Se ensancha y se aplasta */
+            100% { transform: scale(1, 1); }
         }
 
         /* Tiembla el tazón antes de explotar */
@@ -128,20 +144,57 @@
             100% { transform: translateX(0); } 
         }
         
-        /* Efecto de salto con estiramiento (Squash & Stretch) */
         @keyframes aparecerSlime {
             0% { bottom: -50px; transform: scale(0.1, 0.1); opacity: 0; }
-            40% { bottom: 150px; transform: scale(0.8, 1.3); opacity: 1; } /* Sube estirado */
-            70% { bottom: 20px; transform: scale(1.3, 0.7); } /* Cae y se aplasta */
-            85% { transform: scale(0.95, 1.05); } /* Rebote hacia arriba */
+            40% { bottom: 150px; transform: scale(0.8, 1.3); opacity: 1; }
+            70% { bottom: 20px; transform: scale(1.3, 0.7); }
+            85% { transform: scale(0.95, 1.05); }
             100% { transform: scale(1, 1); bottom: 20px; }
         }
 
-        /* Efecto de respiración de gelatina infinita */
         @keyframes respirarImg {
             0% { transform: scale(1, 1); }
-            50% { transform: scale(1.05, 0.95); } /* Se ensancha y baja un poco */
-            100% { transform: scale(0.97, 1.03); } /* Se estira hacia arriba */
+            50% { transform: scale(1.05, 0.95); }
+            100% { transform: scale(0.97, 1.03); }
+        }
+
+        /* ===== BARRA DE AMISTAD ===== */
+        .contenedor-amistad {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .barra-fondo {
+            width: 100%; height: 30px; background: #e9ecef;
+            border-radius: 15px; position: relative; overflow: hidden;
+            border: 3px solid #dee2e6; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .barra-relleno {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, #ffb3c6, #ff758f);
+            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Movimiento rebotón */
+        }
+        .texto-amistad {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+            pointer-events: none; width: 100%; font-size: 1.1rem;
+        }
+
+        /* ===== CORAZÓN ANIMADO ===== */
+        .corazon-flotante {
+            position: absolute; font-size: 60px; top: 30%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.5); opacity: 0;
+            pointer-events: none; z-index: 10;
+        }
+        .animar-corazon {
+            animation: flotarCorazon 1.5s ease-out forwards;
+        }
+
+        @keyframes flotarCorazon {
+            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+            20% { opacity: 1; transform: translate(-50%, -100%) scale(1.3); }
+            80% { opacity: 1; transform: translate(-50%, -180%) scale(1); }
+            100% { transform: translate(-50%, -220%) scale(1.5); opacity: 0; }
         }
 
         /* Heladería */
@@ -174,7 +227,6 @@
             content: ''; position: absolute; bottom: -10px; left: -5%; width: 110%; height: 35px; background: inherit; border-radius: 30px;
             box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.05); z-index: -1;
         }
-
         .eyes { font-size: 45px; position: absolute; top: 35%; left: 50%; transform: translateX(-50%); z-index: 10; }
         .arm { font-size: 45px; position: absolute; top: 40%; left: -35px; transform-origin: bottom right; animation: waveLeft 0.8s infinite alternate; z-index: 10; }
         .topping-particle { position: absolute; font-size: 25px; z-index: 5; }
@@ -229,15 +281,15 @@
             </div>
         </section>
 
-        <!-- JUEGO DE SLIME ACTUALIZADO CON IMÁGENES -->
+        <!-- JUEGO DE SLIME INTERACTIVO -->
         <section id="juego-slime" style="background: var(--pastel-yellow);">
             <h2 class="section-title">🧪 El Mezclador Mágico</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px;">Agrega los ingredientes al tazón y presiona Mezclar para ver la magia.</p>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Agrega los ingredientes y al final ¡toca tu slime para hacerte su amigo!</p>
             
             <div class="juego-slime-container">
-                <div class="ingredientes">
+                
+                <div class="ingredientes" id="menu-ingredientes">
                     <button class="btn-ingrediente" onclick="agregarBase()">🧴 Pegamento</button>
-                    <!-- Aquí vinculamos los botones a los colores y a los nombres de tus imágenes -->
                     <button class="btn-ingrediente" onclick="agregarColor('MORADO.png', '#b300ff')">💜 Morado</button>
                     <button class="btn-ingrediente" onclick="agregarColor('NARANJA.png', '#ff6600')">🧡 Naranja</button>
                     <button class="btn-ingrediente" onclick="agregarColor('AQUA.png', '#00e5ff')">🩵 Aqua</button>
@@ -246,14 +298,33 @@
                 </div>
 
                 <div class="area-mezcla">
+                    <!-- Tazón Inicial -->
                     <div class="tazon" id="el-tazon">
                         <div class="liquido" id="liquido-tazon"></div>
                     </div>
-                    <!-- Esta imagen será la que salte y cambie según la selección -->
-                    <img id="monstruo-resultado" class="monstruo-animado" src="" alt="Tu Slime">
+                    
+                    <!-- Contenedor del Slime Resultado -->
+                    <div id="contenedor-monstruo" class="contenedor-monstruo">
+                        <!-- Imagen interactiva -->
+                        <img id="monstruo-resultado" class="img-slime" src="" alt="Tu Slime" onclick="interactuarSlime()">
+                        <!-- Corazón animado oculto -->
+                        <div id="corazon-animado" class="corazon-flotante">❤️</div>
+                    </div>
+                </div>
+
+                <!-- Barra de Amistad (Oculta al inicio) -->
+                <div id="contenedor-amistad" class="contenedor-amistad">
+                    <p style="margin-bottom: 10px; font-weight: bold; color: var(--text-dark); font-size: 1.2rem;">Nivel de Amistad con tu Slime:</p>
+                    <div class="barra-fondo">
+                        <div class="barra-relleno" id="barra-amistad"></div>
+                        <span class="texto-amistad" id="texto-amistad">¡Toca tu slime!</span>
+                    </div>
                 </div>
                 
-                <button class="btn-burbuja" style="margin-top: 30px; width: 100%;" onclick="mezclarSlime()">🪄 ¡MEZCLAR!</button>
+                <!-- Botones de Acción -->
+                <button class="btn-burbuja" style="margin-top: 30px; width: 100%;" onclick="mezclarSlime()" id="btn-mezclar">🪄 ¡MEZCLAR!</button>
+                <button class="btn-burbuja btn-azul" style="margin-top: 30px; width: 100%; display: none;" onclick="reiniciarSlime()" id="btn-reiniciar-slime">🔄 Crear otro slime</button>
+            
             </div>
         </section>
 
@@ -263,14 +334,14 @@
             <p style="font-size: 1.3rem; max-width: 600px; margin: 0 auto 40px; font-weight: bold;">
                 ¿Quieres que llevemos la magia del laboratorio de slime o nuestra barra de helados a tu próxima fiesta? ¡Escríbenos!
             </p>
-            <a href="https://wa.me/529514082944?text=¡Hola!%20Me%20gustaría%20cotizar%20un%20evento%20infantil%20con%20Coloré." 
+            <a href="https://wa.me/529510000000?text=¡Hola!%20Me%20gustaría%20cotizar%20un%20evento%20infantil%20con%20Coloré." 
                target="_blank" class="btn-burbuja" style="background: #a0c4ff; color: var(--text-dark); padding: 20px 50px; font-size: 1.5rem;">
                 💬 Enviar WhatsApp
             </a>
         </section>
     </div>
 
-    <!-- VISTA HELADERÍA (Sin cambios) -->
+    <!-- VISTA HELADERÍA -->
     <div id="vista-heladeria">
         <h2 style="color: #ff758f; font-size: 3rem; text-shadow: 2px 2px #fff; margin-bottom: 10px;">BARRA DE SABORES</h2>
         <p id="instruccion" style="font-size: 1.3rem; font-weight: bold;">1. Elige tu sabor favorito</p>
@@ -321,10 +392,15 @@
             window.scrollTo(0, 0);
         }
 
-        /* ================= NUEVO JUEGO DE SLIME CON IMÁGENES ================= */
+        /* ================= JUEGO DE SLIME ================= */
         let nivelPegamento = 0;
         let colorLiquidoActual = "#ffffff";
         let imagenSlimeActual = "";
+        
+        // Variables para el juego de clics
+        let clicsAmistad = 0;
+        const maxClics = 10;
+        let sonMejoresAmigos = false;
 
         function agregarBase() {
             nivelPegamento = 60;
@@ -345,37 +421,102 @@
             if (imagenSlimeActual === "") { alert("¡Te falta agregarle color a tu slime! 🎨"); return; }
             
             const tazon = document.getElementById('el-tazon');
+            const contenedorMonstruo = document.getElementById('contenedor-monstruo');
             const imagenMonstruo = document.getElementById('monstruo-resultado');
             
-            imagenMonstruo.style.display = 'none';
+            contenedorMonstruo.style.display = 'none';
             tazon.style.animation = "temblar 0.5s infinite";
             
             setTimeout(() => {
-                // El tazón desaparece
                 tazon.style.animation = "none";
                 tazon.style.display = "none"; 
                 
-                // Le asignamos la imagen seleccionada al monstruo
+                // Ocultamos el menú y mostramos la barra y el nuevo botón
+                document.getElementById('menu-ingredientes').style.display = 'none';
+                document.getElementById('btn-mezclar').style.display = 'none';
+                document.getElementById('btn-reiniciar-slime').style.display = 'block';
+                document.getElementById('contenedor-amistad').style.display = 'block';
+                
                 imagenMonstruo.src = imagenSlimeActual;
+                contenedorMonstruo.style.display = "block";
                 
-                // Hacemos que aparezca con la animación de salto
-                imagenMonstruo.style.display = "block";
-                
-                // Regresar todo a la normalidad después de 6 segundos
-                setTimeout(() => {
-                    imagenMonstruo.style.display = "none";
-                    tazon.style.display = "block";
-                    nivelPegamento = 0; 
-                    colorLiquidoActual = "#ffffff";
-                    imagenSlimeActual = "";
-                    document.getElementById('liquido-tazon').style.height = "0%";
-                    document.getElementById('liquido-tazon').style.backgroundColor = "#e9ecef";
-                }, 6000);
-                
+                // Hacemos scroll sutil para que el niño vea la barra
+                document.getElementById('contenedor-amistad').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
             }, 1500);
         }
 
-        /* ================= HELADERÍA (Sin cambios) ================= */
+        /* Función cuando tocas al Slime */
+        function interactuarSlime() {
+            const imagenSlime = document.getElementById('monstruo-resultado');
+            
+            // Reiniciamos la animación de apachurrar para que se active cada vez que dan clic
+            imagenSlime.classList.remove('click-reaction');
+            void imagenSlime.offsetWidth; // Truco de CSS para reiniciar
+            imagenSlime.classList.add('click-reaction');
+
+            // Lógica de amistad
+            if (!sonMejoresAmigos) {
+                clicsAmistad++;
+                let porcentaje = (clicsAmistad / maxClics) * 100;
+                document.getElementById('barra-amistad').style.width = porcentaje + '%';
+                
+                // Cambiar el texto según el progreso
+                if (clicsAmistad === 3) document.getElementById('texto-amistad').innerText = "¡Le agradas!";
+                if (clicsAmistad === 7) document.getElementById('texto-amistad').innerText = "¡Ya casi son amigos!";
+                
+                // Si llegamos a 10 clics
+                if (clicsAmistad >= maxClics) {
+                    sonMejoresAmigos = true;
+                    document.getElementById('texto-amistad').innerText = "¡Mejores Amigos! 🥰";
+                    
+                    // Activar el corazón volador
+                    const corazon = document.getElementById('corazon-animado');
+                    corazon.classList.remove('animar-corazon');
+                    void corazon.offsetWidth;
+                    corazon.classList.add('animar-corazon');
+                }
+            } else {
+                // Si ya son mejores amigos, al darle clic sigue saliendo un corazón
+                const corazon = document.getElementById('corazon-animado');
+                corazon.classList.remove('animar-corazon');
+                void corazon.offsetWidth;
+                corazon.classList.add('animar-corazon');
+            }
+        }
+
+        /* Función para limpiar la mesa y crear otro slime */
+        function reiniciarSlime() {
+            // Ocultar slime y mostrar tazón vacío
+            document.getElementById('contenedor-monstruo').style.display = "none";
+            document.getElementById('el-tazon').style.display = "block";
+            
+            // Reiniciar variables
+            nivelPegamento = 0; 
+            colorLiquidoActual = "#ffffff";
+            imagenSlimeActual = "";
+            clicsAmistad = 0;
+            sonMejoresAmigos = false;
+            
+            // Limpiar visuales
+            document.getElementById('liquido-tazon').style.height = "0%";
+            document.getElementById('liquido-tazon').style.backgroundColor = "#e9ecef";
+            
+            // Interfaz
+            document.getElementById('menu-ingredientes').style.display = 'flex';
+            document.getElementById('btn-mezclar').style.display = 'block';
+            document.getElementById('btn-reiniciar-slime').style.display = 'none';
+            
+            // Limpiar barra de amistad
+            document.getElementById('contenedor-amistad').style.display = 'none';
+            document.getElementById('barra-amistad').style.width = '0%';
+            document.getElementById('texto-amistad').innerText = "¡Toca tu slime!";
+            
+            // Scroll hacia arriba a los ingredientes
+            document.getElementById('juego-slime-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        /* ================= HELADERÍA ================= */
         let saborElegido = ''; let colorSabor = '';
 
         function seleccionarSabor(sabor, color) {
@@ -411,7 +552,7 @@
             
             const btnPedir = document.getElementById('btn-pedir-helado');
             const mensajeHelado = `¡Hola! Estaba jugando en su página y me gustaría pedir un helado de ${saborElegido} con ${toppingNombre}.`;
-            btnPedir.href = `https://wa.me/529514082944?text=${encodeURIComponent(mensajeHelado)}`;
+            btnPedir.href = `https://wa.me/529510000000?text=${encodeURIComponent(mensajeHelado)}`;
 
             character.style.animation = 'none'; void character.offsetWidth; 
             character.style.animation = 'jumpSpin 1.5s ease-out';
