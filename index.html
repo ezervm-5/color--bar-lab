@@ -81,7 +81,7 @@
            JUEGO INTERACTIVO: EL MEZCLADOR DE SLIME
         ----------------------------------------------------- */
         .juego-slime-container {
-            background: #fff; border-radius: 30px; padding: 40px; max-width: 700px; margin: 0 auto;
+            background: #fff; border-radius: 30px; padding: 40px; max-width: 800px; margin: 0 auto;
             box-shadow: 0 15px 30px rgba(0,0,0,0.05); border: 4px dashed var(--pastel-pink);
         }
         
@@ -92,7 +92,7 @@
         }
         .btn-ingrediente:hover { transform: scale(1.1); background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         
-        .area-mezcla { position: relative; height: 270px; display: flex; justify-content: center; align-items: flex-end; }
+        .area-mezcla { position: relative; height: 320px; display: flex; justify-content: center; align-items: flex-end; }
         
         /* El Tazón */
         .tazon {
@@ -105,40 +105,44 @@
             background: #e9ecef; transition: height 0.5s, background-color 0.5s;
         }
 
-        /* ----- NUEVO SLIME ESTILO GLOSSY 3D ----- */
-        .monstruo-slime {
-            width: 130px; height: 140px; background: var(--pastel-green);
-            border-radius: 45% 55% 40% 40% / 55% 45% 60% 60%; /* Forma tipo gota */
-            position: absolute; bottom: 20px; display: none; z-index: 3;
-            /* Efecto brillante 3D parecido a la imagen */
-            box-shadow: 
-                inset 15px 15px 20px rgba(255,255,255,0.7), /* Brillo superior izquierdo */
-                inset -10px -15px 20px rgba(0,0,0,0.15), /* Sombra interior */
-                0 10px 15px rgba(0,0,0,0.1); /* Sombra en el piso */
-            animation: respirarSlime 2s infinite alternate, saltarSlime 1s ease-out;
+        /* ===== NUEVA ANIMACIÓN DINÁMICA PARA LAS IMÁGENES ===== */
+        .monstruo-animado {
+            width: 180px; /* Tamaño del slime */
+            position: absolute; 
+            bottom: 20px; 
+            display: none; 
+            z-index: 3;
+            transform-origin: bottom center; /* Para que se aplaste desde el suelo */
+            filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2));
+            /* Combina el salto inicial y la respiración infinita */
+            animation: aparecerSlime 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+                       respirarImg 2s infinite alternate 1s;
         }
 
-        /* Charquito de slime debajo */
-        .monstruo-slime::after {
-            content: ''; position: absolute; bottom: -10px; left: -15%; width: 130%; height: 35px;
-            background: inherit; border-radius: 50%; z-index: -1;
-            box-shadow: inset 0 -5px 10px rgba(0,0,0,0.1);
+        /* Tiembla el tazón antes de explotar */
+        @keyframes temblar { 
+            0% { transform: translateX(0); } 
+            25% { transform: translateX(-5px) rotate(-5deg); } 
+            50% { transform: translateX(5px) rotate(5deg); } 
+            75% { transform: translateX(-5px) rotate(-5deg); } 
+            100% { transform: translateX(0); } 
+        }
+        
+        /* Efecto de salto con estiramiento (Squash & Stretch) */
+        @keyframes aparecerSlime {
+            0% { bottom: -50px; transform: scale(0.1, 0.1); opacity: 0; }
+            40% { bottom: 150px; transform: scale(0.8, 1.3); opacity: 1; } /* Sube estirado */
+            70% { bottom: 20px; transform: scale(1.3, 0.7); } /* Cae y se aplasta */
+            85% { transform: scale(0.95, 1.05); } /* Rebote hacia arriba */
+            100% { transform: scale(1, 1); bottom: 20px; }
         }
 
-        /* Brillo blanco tipo cristal en la cabeza */
-        .monstruo-slime::before {
-            content: ''; position: absolute; top: 15px; left: 20px; width: 30px; height: 15px;
-            background: rgba(255,255,255,0.8); border-radius: 50%; transform: rotate(-20deg); z-index: 2;
+        /* Efecto de respiración de gelatina infinita */
+        @keyframes respirarImg {
+            0% { transform: scale(1, 1); }
+            50% { transform: scale(1.05, 0.95); } /* Se ensancha y baja un poco */
+            100% { transform: scale(0.97, 1.03); } /* Se estira hacia arriba */
         }
-
-        .monstruo-slime .cara { 
-            position: absolute; top: 35%; left: 50%; transform: translateX(-50%); 
-            font-size: 45px; width: 100%; text-align: center; z-index: 4; text-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        }
-
-        @keyframes temblar { 0% { transform: translateX(0); } 25% { transform: translateX(-5px) rotate(-5deg); } 50% { transform: translateX(5px) rotate(5deg); } 75% { transform: translateX(-5px) rotate(-5deg); } 100% { transform: translateX(0); } }
-        @keyframes respirarSlime { 0% { border-radius: 45% 55% 40% 40% / 55% 45% 60% 60%; } 100% { border-radius: 55% 45% 50% 50% / 45% 55% 50% 50%; } }
-        @keyframes saltarSlime { 0% { bottom: -50px; transform: scaleY(0.5); } 50% { bottom: 120px; transform: scaleY(1.1); } 100% { bottom: 20px; transform: scaleY(1); } }
 
         /* Heladería */
         .flavors-container, .toppings-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
@@ -225,7 +229,7 @@
             </div>
         </section>
 
-        <!-- JUEGO DE SLIME -->
+        <!-- JUEGO DE SLIME ACTUALIZADO CON IMÁGENES -->
         <section id="juego-slime" style="background: var(--pastel-yellow);">
             <h2 class="section-title">🧪 El Mezclador Mágico</h2>
             <p style="font-size: 1.2rem; margin-bottom: 30px;">Agrega los ingredientes al tazón y presiona Mezclar para ver la magia.</p>
@@ -233,20 +237,20 @@
             <div class="juego-slime-container">
                 <div class="ingredientes">
                     <button class="btn-ingrediente" onclick="agregarBase()">🧴 Pegamento</button>
-                    <button class="btn-ingrediente" onclick="agregarColor('#ff758f')">💖 Gotas Rosas</button>
-                    <button class="btn-ingrediente" onclick="agregarColor('#caffbf')">💚 Gotas Verdes</button>
-                    <button class="btn-ingrediente" onclick="agregarColor('#a0c4ff')">💙 Gotas Azules</button>
-                    <button class="btn-ingrediente" onclick="agregarColor('#ffd670')">💛 Gotas Amarillas</button>
-                    <button class="btn-ingrediente" onclick="agregarBrillos()">✨ Brillos</button>
+                    <!-- Aquí vinculamos los botones a los colores y a los nombres de tus imágenes -->
+                    <button class="btn-ingrediente" onclick="agregarColor('MORADO.png', '#b300ff')">💜 Morado</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('NARANJA.png', '#ff6600')">🧡 Naranja</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('AQUA.png', '#00e5ff')">🩵 Aqua</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('AMARILLO.png', '#ffcc00')">💛 Amarillo</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('VERDE.png', '#00cc44')">💚 Verde</button>
                 </div>
 
                 <div class="area-mezcla">
                     <div class="tazon" id="el-tazon">
                         <div class="liquido" id="liquido-tazon"></div>
                     </div>
-                    <div class="monstruo-slime" id="monstruo-resultado">
-                        <div class="cara" id="cara-slime">😃</div>
-                    </div>
+                    <!-- Esta imagen será la que salte y cambie según la selección -->
+                    <img id="monstruo-resultado" class="monstruo-animado" src="" alt="Tu Slime">
                 </div>
                 
                 <button class="btn-burbuja" style="margin-top: 30px; width: 100%;" onclick="mezclarSlime()">🪄 ¡MEZCLAR!</button>
@@ -266,7 +270,7 @@
         </section>
     </div>
 
-    <!-- VISTA HELADERÍA -->
+    <!-- VISTA HELADERÍA (Sin cambios) -->
     <div id="vista-heladeria">
         <h2 style="color: #ff758f; font-size: 3rem; text-shadow: 2px 2px #fff; margin-bottom: 10px;">BARRA DE SABORES</h2>
         <p id="instruccion" style="font-size: 1.3rem; font-weight: bold;">1. Elige tu sabor favorito</p>
@@ -317,78 +321,61 @@
             window.scrollTo(0, 0);
         }
 
-        /* ================= JUEGO DE SLIME ================= */
+        /* ================= NUEVO JUEGO DE SLIME CON IMÁGENES ================= */
         let nivelPegamento = 0;
-        let colorSlimeActual = "#ffffff";
-        let tieneBrillos = false;
-        
-        // Diferentes caras lindas para el slime (como en la foto)
-        const carasTiernas = ["🥺", "😋", "🤪", "😍", "🤭", "😎", "🤩", "🥰"];
+        let colorLiquidoActual = "#ffffff";
+        let imagenSlimeActual = "";
 
         function agregarBase() {
             nivelPegamento = 60;
             const liquido = document.getElementById('liquido-tazon');
             liquido.style.height = nivelPegamento + '%';
-            liquido.style.backgroundColor = colorSlimeActual;
+            liquido.style.backgroundColor = colorLiquidoActual;
         }
 
-        function agregarColor(colorCode) {
+        function agregarColor(nombreImagen, colorHex) {
             if (nivelPegamento === 0) { alert("¡Primero agrega el pegamento! 🧴"); return; }
-            colorSlimeActual = colorCode;
-            document.getElementById('liquido-tazon').style.backgroundColor = colorCode;
-        }
-
-        function agregarBrillos() {
-            if (nivelPegamento === 0) { alert("¡Primero agrega el pegamento! 🧴"); return; }
-            tieneBrillos = true;
-            document.getElementById('liquido-tazon').style.backgroundImage = "radial-gradient(#fff 15%, transparent 16%), radial-gradient(#fff 15%, transparent 16%)";
-            document.getElementById('liquido-tazon').style.backgroundSize = "20px 20px";
-            document.getElementById('liquido-tazon').style.backgroundPosition = "0 0, 10px 10px";
+            colorLiquidoActual = colorHex;
+            imagenSlimeActual = nombreImagen;
+            document.getElementById('liquido-tazon').style.backgroundColor = colorHex;
         }
 
         function mezclarSlime() {
             if (nivelPegamento === 0) { alert("¡El tazón está vacío! Agrega ingredientes primero."); return; }
+            if (imagenSlimeActual === "") { alert("¡Te falta agregarle color a tu slime! 🎨"); return; }
             
             const tazon = document.getElementById('el-tazon');
-            const monstruo = document.getElementById('monstruo-resultado');
-            const cara = document.getElementById('cara-slime');
+            const imagenMonstruo = document.getElementById('monstruo-resultado');
             
-            monstruo.style.display = 'none';
+            imagenMonstruo.style.display = 'none';
             tazon.style.animation = "temblar 0.5s infinite";
             
             setTimeout(() => {
+                // El tazón desaparece
                 tazon.style.animation = "none";
                 tazon.style.display = "none"; 
                 
-                monstruo.style.backgroundColor = colorSlimeActual;
+                // Le asignamos la imagen seleccionada al monstruo
+                imagenMonstruo.src = imagenSlimeActual;
                 
-                // Elegir una cara al azar
-                let caraAzar = carasTiernas[Math.floor(Math.random() * carasTiernas.length)];
+                // Hacemos que aparezca con la animación de salto
+                imagenMonstruo.style.display = "block";
                 
-                if(tieneBrillos) {
-                    monstruo.style.backgroundImage = "radial-gradient(rgba(255,255,255,0.8) 15%, transparent 16%), radial-gradient(rgba(255,255,255,0.8) 15%, transparent 16%)";
-                    monstruo.style.backgroundSize = "20px 20px";
-                    monstruo.style.backgroundPosition = "0 0, 10px 10px";
-                    cara.innerText = "✨" + caraAzar + "✨";
-                } else {
-                    monstruo.style.backgroundImage = "none";
-                    cara.innerText = caraAzar;
-                }
-                
-                monstruo.style.display = "block";
-                
+                // Regresar todo a la normalidad después de 6 segundos
                 setTimeout(() => {
-                    monstruo.style.display = "none";
+                    imagenMonstruo.style.display = "none";
                     tazon.style.display = "block";
-                    nivelPegamento = 0; tieneBrillos = false; colorSlimeActual = "#ffffff";
+                    nivelPegamento = 0; 
+                    colorLiquidoActual = "#ffffff";
+                    imagenSlimeActual = "";
                     document.getElementById('liquido-tazon').style.height = "0%";
-                    document.getElementById('liquido-tazon').style.backgroundImage = "none";
+                    document.getElementById('liquido-tazon').style.backgroundColor = "#e9ecef";
                 }, 6000);
                 
             }, 1500);
         }
 
-        /* ================= HELADERÍA ================= */
+        /* ================= HELADERÍA (Sin cambios) ================= */
         let saborElegido = ''; let colorSabor = '';
 
         function seleccionarSabor(sabor, color) {
