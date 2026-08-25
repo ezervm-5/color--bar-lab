@@ -100,13 +100,11 @@
             display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; align-items: flex-start;
         }
         
-        /* Tablero */
+        /* Tablero sin pista visual */
         .tablero {
             width: 300px; height: 300px; border: 5px solid var(--text-dark); border-radius: 10px;
             background: rgba(0,0,0,0.05); display: grid; gap: 0;
-            background-image: url('image0.png'); /* Pista visual tenue */
-            background-size: 300px 300px;
-            background-blend-mode: overlay;
+            /* Se eliminó la imagen de fondo para hacerlo más difícil */
         }
         .zona-drop {
             width: 100%; height: 100%; box-sizing: border-box; border: 1px dashed rgba(0,0,0,0.15);
@@ -126,6 +124,13 @@
             transition: transform 0.2s, opacity 0.2s;
         }
         .pieza:active { cursor: grabbing; }
+        
+        /* Clase añadida al momento de arrastrar para que la pieza original se vea transparente */
+        .pieza.arrastrando {
+            opacity: 0.4;
+            transform: scale(0.9);
+        }
+        
         .pieza.seleccionada { transform: scale(1.1); opacity: 0.8; border: 2px solid var(--pastel-pink); z-index: 10;}
         
         .mensaje-victoria {
@@ -253,7 +258,7 @@
             </div>
         </section>
 
-        <!-- JUEGO DE ROMPECABEZAS (NUEVO) -->
+        <!-- JUEGO DE ROMPECABEZAS -->
         <section id="seccion-rompecabezas" class="seccion-rompecabezas">
             <h2 class="section-title" style="color: #fff; text-shadow: 2px 2px #a0c4ff;">🧩 Ayuda a armar a KIWI</h2>
             <p style="font-size: 1.2rem; color: #fff; margin-bottom: 30px;">Puedes arrastrar la pieza, o tocar una pieza y luego tocar el cuadro vacío donde va.</p>
@@ -267,10 +272,10 @@
                 </div>
 
                 <div class="area-juego-rompecabezas">
-                    <!-- Tablero donde se colocarán las piezas -->
+                    <!-- Tablero sin imagen de fondo -->
                     <div class="tablero" id="tablero-rompecabezas"></div>
                     
-                    <!-- Bandeja de piezas sueltas -->
+                    <!-- Bandeja de piezas -->
                     <div class="caja-piezas" id="caja-piezas">
                         <p style="color: #adb5bd; width: 100%; text-align: center; margin-top: 50px;">Selecciona un nivel para comenzar</p>
                     </div>
@@ -383,12 +388,11 @@
             window.scrollTo(0, 0);
         }
 
-        /* ================= ROMPECABEZAS (NUEVO) ================= */
+        /* ================= ROMPECABEZAS ================= */
         let piezaSeleccionada = null;
         let totalPiezasActual = 0;
 
         function iniciarRompecabezas(piezas, btn) {
-            // Estilo de botones
             document.querySelectorAll('#controles-nivel .btn-nivel').forEach(b => b.classList.remove('activo'));
             if(btn) btn.classList.add('activo');
             
@@ -401,7 +405,6 @@
             piezaSeleccionada = null;
             totalPiezasActual = piezas;
 
-            // Definir cuadrícula (Tablero fijo de 300x300px)
             let cols, rows;
             if (piezas === 6) { cols = 3; rows = 2; }
             else if (piezas === 10) { cols = 5; rows = 2; }
@@ -418,20 +421,16 @@
                 let x = (i % cols) * anchoPieza;
                 let y = Math.floor(i / cols) * altoPieza;
 
-                // Crear el espacio (Zona donde caerá la pieza)
                 let zonaDrop = document.createElement('div');
                 zonaDrop.className = 'zona-drop';
                 zonaDrop.dataset.id = i;
                 
-                // Eventos Drag and Drop
                 zonaDrop.addEventListener('dragover', e => e.preventDefault());
                 zonaDrop.addEventListener('drop', soltarPiezaDrag);
-                // Evento para Touch / Clic
                 zonaDrop.addEventListener('click', soltarPiezaClick);
                 
                 tablero.appendChild(zonaDrop);
 
-                // Crear la pieza
                 let pieza = document.createElement('div');
                 pieza.className = 'pieza';
                 pieza.draggable = true;
@@ -440,24 +439,27 @@
                 pieza.style.height = `${altoPieza}px`;
                 pieza.style.backgroundPosition = `-${x}px -${y}px`;
 
-                // Eventos Drag and Drop
                 pieza.addEventListener('dragstart', iniciarArrastre);
-                // Evento para Touch / Clic
+                pieza.addEventListener('dragend', finalizarArrastre);
                 pieza.addEventListener('click', seleccionarPiezaClick);
                 
                 arrayPiezas.push(pieza);
             }
 
-            // Revolver piezas y ponerlas en la caja
             arrayPiezas.sort(() => Math.random() - 0.5).forEach(p => cajaPiezas.appendChild(p));
         }
 
-        // --- Lógica: Drag and Drop Tradicional ---
+        // --- Drag and Drop Logic ---
         function iniciarArrastre(e) {
             piezaSeleccionada = e.target;
             e.dataTransfer.setData('text/plain', e.target.dataset.id);
-            // Limpiar selección por clic si existía
+            // Hacer la pieza original transparente mientras se arrastra
+            setTimeout(() => e.target.classList.add('arrastrando'), 0);
             document.querySelectorAll('.pieza').forEach(p => p.classList.remove('seleccionada'));
+        }
+
+        function finalizarArrastre(e) {
+            e.target.classList.remove('arrastrando');
         }
 
         function soltarPiezaDrag(e) {
@@ -466,12 +468,12 @@
             if (zona.dataset.id === piezaSeleccionada.dataset.id && zona.children.length === 0) {
                 encajarPieza(piezaSeleccionada, zona);
             }
+            // Si la pieza no encaja, el evento dragend de arriba le quita la clase transparente
             piezaSeleccionada = null;
         }
 
-        // --- Lógica: Tap / Clic (Ideal para tablets y celulares) ---
+        // --- Click Logic (Touch fallback) ---
         function seleccionarPiezaClick(e) {
-            // Si la pieza ya está en el tablero, ignorar
             if (e.target.parentElement.classList.contains('zona-drop')) return;
             
             document.querySelectorAll('.pieza').forEach(p => p.classList.remove('seleccionada'));
@@ -486,21 +488,20 @@
                     encajarPieza(piezaSeleccionada, zona);
                     piezaSeleccionada = null;
                 } else {
-                    // Si se equivoca, simplemente deseleccionamos la pieza (se queda en la caja)
                     piezaSeleccionada.classList.remove('seleccionada');
                     piezaSeleccionada = null;
                 }
             }
         }
 
-        // --- Acción de encajar correctamente ---
         function encajarPieza(pieza, zona) {
             pieza.classList.remove('seleccionada');
+            pieza.classList.remove('arrastrando');
             pieza.draggable = false;
             pieza.style.border = 'none';
             pieza.style.boxShadow = 'none';
             zona.appendChild(pieza);
-            zona.style.border = 'none'; // Quita la línea punteada para que se vea limpio
+            zona.style.border = 'none'; 
             verificarArmado();
         }
 
