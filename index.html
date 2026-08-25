@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COLORÉ LAB & BAR - Slime y Helados</title>
+    <title>COLORÉ LAB & BAR - Slime, Helados y Juegos</title>
     <style>
-        /* Nueva Paleta Pastel */
+        /* Paleta Pastel */
         :root {
             --pastel-pink: #ffb3c6;
             --pastel-blue: #a0c4ff;
@@ -22,22 +22,22 @@
             overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* Navegación Pastel */
+        /* Navegación */
         nav {
             position: fixed; top: 0; width: 100%; background: var(--white-glass);
             backdrop-filter: blur(10px); display: flex; justify-content: center;
             align-items: center; padding: 10px 0; z-index: 1000; 
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); gap: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); gap: 20px; flex-wrap: wrap;
         }
-        nav a { color: var(--text-dark); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 1.1rem; }
+        nav a { color: var(--text-dark); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 1rem; margin: 0 10px;}
         nav a:hover { color: #ff758f; transform: scale(1.1); }
-        .nav-logo { height: 75px; border-radius: 15px; transition: 0.3s; }
+        .nav-logo { height: 60px; border-radius: 15px; transition: 0.3s; }
         .nav-logo:hover { transform: scale(1.05) rotate(-3deg); }
 
         #vista-principal { display: block; }
         #vista-heladeria { display: none; padding-top: 120px; min-height: 100vh; text-align: center; background: radial-gradient(circle, #fff5f5, #e6f9ff); }
 
-        /* Portada Tierna */
+        /* Portada */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             padding: 100px 20px 20px 20px; gap: 50px; flex-wrap: wrap;
@@ -52,7 +52,7 @@
 
         @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
 
-        /* Botones Estilo Burbuja */
+        /* Botones */
         .btn-burbuja {
             background: #ff758f; color: #fff; border: none;
             padding: 15px 35px; font-size: 1.3rem; border-radius: 50px; cursor: pointer;
@@ -62,6 +62,8 @@
         .btn-burbuja:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 20px rgba(255, 117, 143, 0.4); }
         .btn-azul { background: var(--pastel-blue); box-shadow: 0 8px 15px rgba(160, 196, 255, 0.4); color: var(--text-dark);}
         .btn-azul:hover { background: #8bb4f7; box-shadow: 0 12px 20px rgba(160, 196, 255, 0.5); }
+        .btn-verde { background: var(--pastel-green); box-shadow: 0 8px 15px rgba(202, 255, 191, 0.4); color: var(--text-dark);}
+        .btn-verde:hover { background: #a5f096; box-shadow: 0 12px 20px rgba(202, 255, 191, 0.5); }
 
         /* Servicios */
         section { padding: 80px 20px; text-align: center; }
@@ -77,9 +79,60 @@
         .card-yellow { border-color: var(--pastel-yellow); }
         .service-card:hover { transform: translateY(-10px) rotate(2deg); }
 
-        /* ---------------------------------------------------
-           JUEGO INTERACTIVO: EL MEZCLADOR DE SLIME
-        ----------------------------------------------------- */
+        /* ========== ROMPECABEZAS ========== */
+        .seccion-rompecabezas {
+            background: var(--pastel-blue);
+        }
+        .juego-rompecabezas-container {
+            background: #fff; border-radius: 30px; padding: 40px; max-width: 900px; margin: 0 auto;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05); border: 4px dashed #fff;
+        }
+        .controles-rompecabezas {
+            margin-bottom: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;
+        }
+        .btn-nivel {
+            background: #f1f3f5; border: 2px solid #dee2e6; border-radius: 20px; padding: 10px 20px;
+            font-size: 1.2rem; cursor: pointer; transition: 0.3s; font-weight: bold; color: var(--text-dark);
+        }
+        .btn-nivel:hover, .btn-nivel.activo { background: var(--pastel-yellow); border-color: #ffd670; transform: scale(1.1); }
+        
+        .area-juego-rompecabezas {
+            display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+        }
+        
+        /* Tablero */
+        .tablero {
+            width: 300px; height: 300px; border: 5px solid var(--text-dark); border-radius: 10px;
+            background: rgba(0,0,0,0.05); display: grid; gap: 0;
+            background-image: url('image0.png'); /* Pista visual tenue */
+            background-size: 300px 300px;
+            background-blend-mode: overlay;
+        }
+        .zona-drop {
+            width: 100%; height: 100%; box-sizing: border-box; border: 1px dashed rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+        
+        /* Piezas sueltas */
+        .caja-piezas {
+            width: 300px; min-height: 300px; border: 4px dashed #ced4da; border-radius: 15px;
+            display: flex; flex-wrap: wrap; gap: 5px; padding: 10px; align-content: flex-start;
+            background: #f8f9fa; box-sizing: border-box; justify-content: center;
+        }
+        .pieza {
+            background-image: url('image0.png'); background-size: 300px 300px;
+            cursor: grab; border: 1px solid #fff; box-sizing: border-box;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2); border-radius: 3px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+        .pieza:active { cursor: grabbing; }
+        .pieza.seleccionada { transform: scale(1.1); opacity: 0.8; border: 2px solid var(--pastel-pink); z-index: 10;}
+        
+        .mensaje-victoria {
+            font-size: 2rem; color: #ff758f; margin-top: 20px; font-weight: bold; min-height: 40px; text-shadow: 1px 1px 0px #fff;
+        }
+
+        /* ========== JUEGO DE SLIME ========== */
         .juego-slime-container {
             background: #fff; border-radius: 30px; padding: 40px; max-width: 800px; margin: 0 auto;
             box-shadow: 0 15px 30px rgba(0,0,0,0.05); border: 4px dashed var(--pastel-pink);
@@ -104,100 +157,32 @@
             background: #e9ecef; transition: height 0.5s, background-color 0.5s;
         }
 
-        /* ===== CONTENEDOR Y ANIMACIÓN DEL SLIME ===== */
         .contenedor-monstruo {
-            position: absolute; 
-            bottom: 20px; 
-            display: none; 
-            z-index: 3;
-            transform-origin: bottom center;
-            /* La animación de salto y respiración van en el contenedor */
-            animation: aparecerSlime 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
-                       respirarImg 2s infinite alternate 1s;
+            position: absolute; bottom: 20px; display: none; z-index: 3; transform-origin: bottom center;
+            animation: aparecerSlime 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, respirarImg 2s infinite alternate 1s;
         }
 
-        /* Imagen del slime interactiva */
         .img-slime {
-            width: 180px; 
-            filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2)); 
-            cursor: pointer;
-            transition: transform 0.1s; /* Suaviza el click */
+            width: 180px; filter: drop-shadow(0 15px 10px rgba(0,0,0,0.2)); cursor: pointer; transition: transform 0.1s;
         }
+        .click-reaction { animation: apachurrar 0.3s ease !important; }
 
-        /* Reacción al darle clic (Apachurrarse) */
-        .click-reaction {
-            animation: apachurrar 0.3s ease !important;
-        }
+        @keyframes apachurrar { 0% { transform: scale(1, 1); } 50% { transform: scale(1.2, 0.8); } 100% { transform: scale(1, 1); } }
+        @keyframes temblar { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-5px) rotate(-5deg); } 50% { transform: translateX(5px) rotate(5deg); } }
+        @keyframes aparecerSlime { 0% { bottom: -50px; transform: scale(0.1, 0.1); opacity: 0; } 40% { bottom: 150px; transform: scale(0.8, 1.3); opacity: 1; } 70% { bottom: 20px; transform: scale(1.3, 0.7); } 85% { transform: scale(0.95, 1.05); } 100% { transform: scale(1, 1); bottom: 20px; } }
+        @keyframes respirarImg { 0% { transform: scale(1, 1); } 50% { transform: scale(1.05, 0.95); } 100% { transform: scale(0.97, 1.03); } }
 
-        @keyframes apachurrar {
-            0% { transform: scale(1, 1); }
-            50% { transform: scale(1.2, 0.8); } /* Se ensancha y se aplasta */
-            100% { transform: scale(1, 1); }
-        }
+        /* Barra de Amistad */
+        .contenedor-amistad { display: none; margin-top: 20px; text-align: center; }
+        .barra-fondo { width: 100%; height: 30px; background: #e9ecef; border-radius: 15px; position: relative; overflow: hidden; border: 3px solid #dee2e6; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1); }
+        .barra-relleno { height: 100%; width: 0%; background: linear-gradient(90deg, #ffb3c6, #ff758f); transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .texto-amistad { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); pointer-events: none; width: 100%; font-size: 1.1rem; }
 
-        /* Tiembla el tazón antes de explotar */
-        @keyframes temblar { 
-            0% { transform: translateX(0); } 
-            25% { transform: translateX(-5px) rotate(-5deg); } 
-            50% { transform: translateX(5px) rotate(5deg); } 
-            75% { transform: translateX(-5px) rotate(-5deg); } 
-            100% { transform: translateX(0); } 
-        }
-        
-        @keyframes aparecerSlime {
-            0% { bottom: -50px; transform: scale(0.1, 0.1); opacity: 0; }
-            40% { bottom: 150px; transform: scale(0.8, 1.3); opacity: 1; }
-            70% { bottom: 20px; transform: scale(1.3, 0.7); }
-            85% { transform: scale(0.95, 1.05); }
-            100% { transform: scale(1, 1); bottom: 20px; }
-        }
+        .corazon-flotante { position: absolute; font-size: 60px; top: 30%; left: 50%; transform: translate(-50%, -50%) scale(0.5); opacity: 0; pointer-events: none; z-index: 10; }
+        .animar-corazon { animation: flotarCorazon 1.5s ease-out forwards; }
+        @keyframes flotarCorazon { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; } 20% { opacity: 1; transform: translate(-50%, -100%) scale(1.3); } 80% { opacity: 1; transform: translate(-50%, -180%) scale(1); } 100% { transform: translate(-50%, -220%) scale(1.5); opacity: 0; } }
 
-        @keyframes respirarImg {
-            0% { transform: scale(1, 1); }
-            50% { transform: scale(1.05, 0.95); }
-            100% { transform: scale(0.97, 1.03); }
-        }
-
-        /* ===== BARRA DE AMISTAD ===== */
-        .contenedor-amistad {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .barra-fondo {
-            width: 100%; height: 30px; background: #e9ecef;
-            border-radius: 15px; position: relative; overflow: hidden;
-            border: 3px solid #dee2e6; box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .barra-relleno {
-            height: 100%; width: 0%;
-            background: linear-gradient(90deg, #ffb3c6, #ff758f);
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Movimiento rebotón */
-        }
-        .texto-amistad {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            font-weight: bold; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
-            pointer-events: none; width: 100%; font-size: 1.1rem;
-        }
-
-        /* ===== CORAZÓN ANIMADO ===== */
-        .corazon-flotante {
-            position: absolute; font-size: 60px; top: 30%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.5); opacity: 0;
-            pointer-events: none; z-index: 10;
-        }
-        .animar-corazon {
-            animation: flotarCorazon 1.5s ease-out forwards;
-        }
-
-        @keyframes flotarCorazon {
-            0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-            20% { opacity: 1; transform: translate(-50%, -100%) scale(1.3); }
-            80% { opacity: 1; transform: translate(-50%, -180%) scale(1); }
-            100% { transform: translate(-50%, -220%) scale(1.5); opacity: 0; }
-        }
-
-        /* Heladería */
+        /* ========== HELADERÍA ========== */
         .flavors-container, .toppings-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
         .flavor-item {
             width: 140px; height: 140px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
@@ -209,44 +194,30 @@
         .flavor-fresa { background: #ffc2d1; }
         .flavor-item:hover { transform: scale(1.15) rotate(5deg); }
 
-        .topping-btn {
-            background: #fff; color: var(--text-dark); border: 3px solid var(--pastel-pink);
-            padding: 15px 25px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; font-weight: bold;
-        }
+        .topping-btn { background: #fff; color: var(--text-dark); border: 3px solid var(--pastel-pink); padding: 15px 25px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; font-weight: bold; }
         .topping-btn:hover { background: var(--pastel-pink); color: #fff; }
 
-        /* Helado 3D Animado */
         @keyframes jumpSpin { 0% { transform: translateY(0) rotate(0deg); } 30% { transform: translateY(-100px) rotate(-180deg); } 50% { transform: translateY(0) rotate(-360deg); } 70% { transform: translateY(-30px) rotate(-360deg); } 100% { transform: translateY(0) rotate(-360deg); } }
         @keyframes waveLeft { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
 
-        .ice-cream-character {
-            width: 170px; height: 170px; border-radius: 50%; position: relative; margin: 40px auto 0; display: none;
-            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.1), inset 5px 5px 20px rgba(255,255,255,0.8); z-index: 2;
-        }
-        .ice-cream-character::after {
-            content: ''; position: absolute; bottom: -10px; left: -5%; width: 110%; height: 35px; background: inherit; border-radius: 30px;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.05); z-index: -1;
-        }
+        .ice-cream-character { width: 170px; height: 170px; border-radius: 50%; position: relative; margin: 40px auto 0; display: none; box-shadow: inset -15px -15px 30px rgba(0,0,0,0.1), inset 5px 5px 20px rgba(255,255,255,0.8); z-index: 2; }
+        .ice-cream-character::after { content: ''; position: absolute; bottom: -10px; left: -5%; width: 110%; height: 35px; background: inherit; border-radius: 30px; box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.05); z-index: -1; }
         .eyes { font-size: 45px; position: absolute; top: 35%; left: 50%; transform: translateX(-50%); z-index: 10; }
         .arm { font-size: 45px; position: absolute; top: 40%; left: -35px; transform-origin: bottom right; animation: waveLeft 0.8s infinite alternate; z-index: 10; }
         .topping-particle { position: absolute; font-size: 25px; z-index: 5; }
+        .cono { width: 110px; height: 150px; background: #e6ccb2; background-image: repeating-linear-gradient(45deg, rgba(205, 133, 63, 0.1) 0, rgba(205, 133, 63, 0.1) 3px, transparent 3px, transparent 15px), repeating-linear-gradient(-45deg, rgba(205, 133, 63, 0.1) 0, rgba(205, 133, 63, 0.1) 3px, transparent 3px, transparent 15px); clip-path: polygon(0 0, 100% 0, 50% 100%); margin: -20px auto 0; display: none; position: relative; z-index: 1; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2)); }
 
-        .cono {
-            width: 110px; height: 150px; background: #e6ccb2;
-            background-image: repeating-linear-gradient(45deg, rgba(205, 133, 63, 0.1) 0, rgba(205, 133, 63, 0.1) 3px, transparent 3px, transparent 15px), repeating-linear-gradient(-45deg, rgba(205, 133, 63, 0.1) 0, rgba(205, 133, 63, 0.1) 3px, transparent 3px, transparent 15px);
-            clip-path: polygon(0 0, 100% 0, 50% 100%); margin: -20px auto 0; display: none; position: relative; z-index: 1; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
-        }
-
-        @media (max-width: 768px) { nav { flex-wrap: wrap; gap: 10px; padding: 10px; } .hero { text-align: center; margin-top: 50px;} .hero-text { text-align: center; } .mascot-img { width: 280px; } }
+        @media (max-width: 768px) { nav { gap: 10px; padding: 10px; } .hero { text-align: center; margin-top: 50px;} .hero-text { text-align: center; } .mascot-img { width: 280px; } }
     </style>
 </head>
 <body>
 
     <nav>
         <a onclick="irASeccion('servicios')">Servicios</a>
+        <a onclick="irASeccion('juego-slime')">Hacer Slime</a>
         <a onclick="irASeccion('inicio')"><img src="image1.jpeg" alt="Logo" class="nav-logo"></a>
+        <a onclick="irASeccion('seccion-rompecabezas')">Rompecabezas</a>
         <a onclick="mostrarHeladeria()">Heladería</a>
-        <a onclick="irASeccion('contacto')">Contacto</a>
     </nav>
 
     <!-- VISTA PRINCIPAL -->
@@ -254,9 +225,10 @@
         <header id="inicio" class="hero">
             <div class="hero-text">
                 <h1>COLORÉ<br>LAB & BAR</h1>
-                <p>Donde la imaginación, los colores y la ciencia se mezclan para crear diversión sin límites. ¡Atrévete a crear!</p>
-                <button class="btn-burbuja" onclick="irASeccion('juego-slime')">¡Hacer Slime!</button>
-                <button class="btn-burbuja btn-azul" onclick="mostrarHeladeria()">Ir a Heladería 🍦</button>
+                <p>Donde la imaginación, los colores y la ciencia se mezclan para crear diversión sin límites.</p>
+                <button class="btn-burbuja" onclick="irASeccion('juego-slime')">🪄 Hacer Slime</button>
+                <button class="btn-burbuja btn-verde" onclick="irASeccion('seccion-rompecabezas')">🧩 Armar a KIWI</button>
+                <button class="btn-burbuja btn-azul" onclick="mostrarHeladeria()">🍦 Heladería</button>
             </div>
             <div class="mascot-container">
                 <img src="image0.png" alt="Mascota" class="mascot-img">
@@ -281,6 +253,33 @@
             </div>
         </section>
 
+        <!-- JUEGO DE ROMPECABEZAS (NUEVO) -->
+        <section id="seccion-rompecabezas" class="seccion-rompecabezas">
+            <h2 class="section-title" style="color: #fff; text-shadow: 2px 2px #a0c4ff;">🧩 Ayuda a armar a KIWI</h2>
+            <p style="font-size: 1.2rem; color: #fff; margin-bottom: 30px;">Puedes arrastrar la pieza, o tocar una pieza y luego tocar el cuadro vacío donde va.</p>
+            
+            <div class="juego-rompecabezas-container">
+                
+                <div class="controles-rompecabezas" id="controles-nivel">
+                    <button class="btn-nivel" onclick="iniciarRompecabezas(6, this)">Nivel Fácil (6 piezas)</button>
+                    <button class="btn-nivel" onclick="iniciarRompecabezas(10, this)">Nivel Medio (10 piezas)</button>
+                    <button class="btn-nivel" onclick="iniciarRompecabezas(20, this)">Nivel Difícil (20 piezas)</button>
+                </div>
+
+                <div class="area-juego-rompecabezas">
+                    <!-- Tablero donde se colocarán las piezas -->
+                    <div class="tablero" id="tablero-rompecabezas"></div>
+                    
+                    <!-- Bandeja de piezas sueltas -->
+                    <div class="caja-piezas" id="caja-piezas">
+                        <p style="color: #adb5bd; width: 100%; text-align: center; margin-top: 50px;">Selecciona un nivel para comenzar</p>
+                    </div>
+                </div>
+
+                <div id="mensaje-victoria" class="mensaje-victoria"></div>
+            </div>
+        </section>
+
         <!-- JUEGO DE SLIME INTERACTIVO -->
         <section id="juego-slime" style="background: var(--pastel-yellow);">
             <h2 class="section-title">🧪 El Mezclador Mágico</h2>
@@ -298,21 +297,15 @@
                 </div>
 
                 <div class="area-mezcla">
-                    <!-- Tazón Inicial -->
                     <div class="tazon" id="el-tazon">
                         <div class="liquido" id="liquido-tazon"></div>
                     </div>
-                    
-                    <!-- Contenedor del Slime Resultado -->
                     <div id="contenedor-monstruo" class="contenedor-monstruo">
-                        <!-- Imagen interactiva -->
                         <img id="monstruo-resultado" class="img-slime" src="" alt="Tu Slime" onclick="interactuarSlime()">
-                        <!-- Corazón animado oculto -->
                         <div id="corazon-animado" class="corazon-flotante">❤️</div>
                     </div>
                 </div>
 
-                <!-- Barra de Amistad (Oculta al inicio) -->
                 <div id="contenedor-amistad" class="contenedor-amistad">
                     <p style="margin-bottom: 10px; font-weight: bold; color: var(--text-dark); font-size: 1.2rem;">Nivel de Amistad con tu Slime:</p>
                     <div class="barra-fondo">
@@ -321,10 +314,8 @@
                     </div>
                 </div>
                 
-                <!-- Botones de Acción -->
                 <button class="btn-burbuja" style="margin-top: 30px; width: 100%;" onclick="mezclarSlime()" id="btn-mezclar">🪄 ¡MEZCLAR!</button>
                 <button class="btn-burbuja btn-azul" style="margin-top: 30px; width: 100%; display: none;" onclick="reiniciarSlime()" id="btn-reiniciar-slime">🔄 Crear otro slime</button>
-            
             </div>
         </section>
 
@@ -392,12 +383,139 @@
             window.scrollTo(0, 0);
         }
 
+        /* ================= ROMPECABEZAS (NUEVO) ================= */
+        let piezaSeleccionada = null;
+        let totalPiezasActual = 0;
+
+        function iniciarRompecabezas(piezas, btn) {
+            // Estilo de botones
+            document.querySelectorAll('#controles-nivel .btn-nivel').forEach(b => b.classList.remove('activo'));
+            if(btn) btn.classList.add('activo');
+            
+            document.getElementById('mensaje-victoria').innerText = '';
+            
+            const tablero = document.getElementById('tablero-rompecabezas');
+            const cajaPiezas = document.getElementById('caja-piezas');
+            tablero.innerHTML = '';
+            cajaPiezas.innerHTML = '';
+            piezaSeleccionada = null;
+            totalPiezasActual = piezas;
+
+            // Definir cuadrícula (Tablero fijo de 300x300px)
+            let cols, rows;
+            if (piezas === 6) { cols = 3; rows = 2; }
+            else if (piezas === 10) { cols = 5; rows = 2; }
+            else if (piezas === 20) { cols = 5; rows = 4; }
+
+            tablero.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+            tablero.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+            const anchoPieza = 300 / cols;
+            const altoPieza = 300 / rows;
+            const arrayPiezas = [];
+
+            for (let i = 0; i < piezas; i++) {
+                let x = (i % cols) * anchoPieza;
+                let y = Math.floor(i / cols) * altoPieza;
+
+                // Crear el espacio (Zona donde caerá la pieza)
+                let zonaDrop = document.createElement('div');
+                zonaDrop.className = 'zona-drop';
+                zonaDrop.dataset.id = i;
+                
+                // Eventos Drag and Drop
+                zonaDrop.addEventListener('dragover', e => e.preventDefault());
+                zonaDrop.addEventListener('drop', soltarPiezaDrag);
+                // Evento para Touch / Clic
+                zonaDrop.addEventListener('click', soltarPiezaClick);
+                
+                tablero.appendChild(zonaDrop);
+
+                // Crear la pieza
+                let pieza = document.createElement('div');
+                pieza.className = 'pieza';
+                pieza.draggable = true;
+                pieza.dataset.id = i;
+                pieza.style.width = `${anchoPieza}px`;
+                pieza.style.height = `${altoPieza}px`;
+                pieza.style.backgroundPosition = `-${x}px -${y}px`;
+
+                // Eventos Drag and Drop
+                pieza.addEventListener('dragstart', iniciarArrastre);
+                // Evento para Touch / Clic
+                pieza.addEventListener('click', seleccionarPiezaClick);
+                
+                arrayPiezas.push(pieza);
+            }
+
+            // Revolver piezas y ponerlas en la caja
+            arrayPiezas.sort(() => Math.random() - 0.5).forEach(p => cajaPiezas.appendChild(p));
+        }
+
+        // --- Lógica: Drag and Drop Tradicional ---
+        function iniciarArrastre(e) {
+            piezaSeleccionada = e.target;
+            e.dataTransfer.setData('text/plain', e.target.dataset.id);
+            // Limpiar selección por clic si existía
+            document.querySelectorAll('.pieza').forEach(p => p.classList.remove('seleccionada'));
+        }
+
+        function soltarPiezaDrag(e) {
+            e.preventDefault();
+            const zona = e.currentTarget;
+            if (zona.dataset.id === piezaSeleccionada.dataset.id && zona.children.length === 0) {
+                encajarPieza(piezaSeleccionada, zona);
+            }
+            piezaSeleccionada = null;
+        }
+
+        // --- Lógica: Tap / Clic (Ideal para tablets y celulares) ---
+        function seleccionarPiezaClick(e) {
+            // Si la pieza ya está en el tablero, ignorar
+            if (e.target.parentElement.classList.contains('zona-drop')) return;
+            
+            document.querySelectorAll('.pieza').forEach(p => p.classList.remove('seleccionada'));
+            piezaSeleccionada = e.target;
+            piezaSeleccionada.classList.add('seleccionada');
+        }
+
+        function soltarPiezaClick(e) {
+            const zona = e.currentTarget;
+            if (piezaSeleccionada && zona.children.length === 0) {
+                if (zona.dataset.id === piezaSeleccionada.dataset.id) {
+                    encajarPieza(piezaSeleccionada, zona);
+                    piezaSeleccionada = null;
+                } else {
+                    // Si se equivoca, simplemente deseleccionamos la pieza (se queda en la caja)
+                    piezaSeleccionada.classList.remove('seleccionada');
+                    piezaSeleccionada = null;
+                }
+            }
+        }
+
+        // --- Acción de encajar correctamente ---
+        function encajarPieza(pieza, zona) {
+            pieza.classList.remove('seleccionada');
+            pieza.draggable = false;
+            pieza.style.border = 'none';
+            pieza.style.boxShadow = 'none';
+            zona.appendChild(pieza);
+            zona.style.border = 'none'; // Quita la línea punteada para que se vea limpio
+            verificarArmado();
+        }
+
+        function verificarArmado() {
+            const cajaPiezas = document.getElementById('caja-piezas');
+            if (cajaPiezas.children.length === 0) {
+                document.getElementById('mensaje-victoria').innerText = "🎉 ¡Felicidades, armaste a KIWI! 🧩";
+            }
+        }
+
         /* ================= JUEGO DE SLIME ================= */
         let nivelPegamento = 0;
         let colorLiquidoActual = "#ffffff";
         let imagenSlimeActual = "";
         
-        // Variables para el juego de clics
         let clicsAmistad = 0;
         const maxClics = 10;
         let sonMejoresAmigos = false;
@@ -431,7 +549,6 @@
                 tazon.style.animation = "none";
                 tazon.style.display = "none"; 
                 
-                // Ocultamos el menú y mostramos la barra y el nuevo botón
                 document.getElementById('menu-ingredientes').style.display = 'none';
                 document.getElementById('btn-mezclar').style.display = 'none';
                 document.getElementById('btn-reiniciar-slime').style.display = 'block';
@@ -440,44 +557,35 @@
                 imagenMonstruo.src = imagenSlimeActual;
                 contenedorMonstruo.style.display = "block";
                 
-                // Hacemos scroll sutil para que el niño vea la barra
                 document.getElementById('contenedor-amistad').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             }, 1500);
         }
 
-        /* Función cuando tocas al Slime */
         function interactuarSlime() {
             const imagenSlime = document.getElementById('monstruo-resultado');
-            
-            // Reiniciamos la animación de apachurrar para que se active cada vez que dan clic
             imagenSlime.classList.remove('click-reaction');
-            void imagenSlime.offsetWidth; // Truco de CSS para reiniciar
+            void imagenSlime.offsetWidth;
             imagenSlime.classList.add('click-reaction');
 
-            // Lógica de amistad
             if (!sonMejoresAmigos) {
                 clicsAmistad++;
                 let porcentaje = (clicsAmistad / maxClics) * 100;
                 document.getElementById('barra-amistad').style.width = porcentaje + '%';
                 
-                // Cambiar el texto según el progreso
                 if (clicsAmistad === 3) document.getElementById('texto-amistad').innerText = "¡Le agradas!";
                 if (clicsAmistad === 7) document.getElementById('texto-amistad').innerText = "¡Ya casi son amigos!";
                 
-                // Si llegamos a 10 clics
                 if (clicsAmistad >= maxClics) {
                     sonMejoresAmigos = true;
                     document.getElementById('texto-amistad').innerText = "¡Mejores Amigos! 🥰";
                     
-                    // Activar el corazón volador
                     const corazon = document.getElementById('corazon-animado');
                     corazon.classList.remove('animar-corazon');
                     void corazon.offsetWidth;
                     corazon.classList.add('animar-corazon');
                 }
             } else {
-                // Si ya son mejores amigos, al darle clic sigue saliendo un corazón
                 const corazon = document.getElementById('corazon-animado');
                 corazon.classList.remove('animar-corazon');
                 void corazon.offsetWidth;
@@ -485,35 +593,25 @@
             }
         }
 
-        /* Función para limpiar la mesa y crear otro slime */
         function reiniciarSlime() {
-            // Ocultar slime y mostrar tazón vacío
             document.getElementById('contenedor-monstruo').style.display = "none";
             document.getElementById('el-tazon').style.display = "block";
             
-            // Reiniciar variables
-            nivelPegamento = 0; 
-            colorLiquidoActual = "#ffffff";
-            imagenSlimeActual = "";
-            clicsAmistad = 0;
-            sonMejoresAmigos = false;
+            nivelPegamento = 0; colorLiquidoActual = "#ffffff"; imagenSlimeActual = "";
+            clicsAmistad = 0; sonMejoresAmigos = false;
             
-            // Limpiar visuales
             document.getElementById('liquido-tazon').style.height = "0%";
             document.getElementById('liquido-tazon').style.backgroundColor = "#e9ecef";
             
-            // Interfaz
             document.getElementById('menu-ingredientes').style.display = 'flex';
             document.getElementById('btn-mezclar').style.display = 'block';
             document.getElementById('btn-reiniciar-slime').style.display = 'none';
             
-            // Limpiar barra de amistad
             document.getElementById('contenedor-amistad').style.display = 'none';
             document.getElementById('barra-amistad').style.width = '0%';
             document.getElementById('texto-amistad').innerText = "¡Toca tu slime!";
             
-            // Scroll hacia arriba a los ingredientes
-            document.getElementById('juego-slime-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            document.getElementById('juego-slime').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         /* ================= HELADERÍA ================= */
