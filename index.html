@@ -3,145 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COLORÉ - Diversión, Slime & Helados</title>
+    <title>COLORÉ LAB & BAR - Slime y Helados</title>
     <style>
+        /* Nueva Paleta Pastel */
         :root {
-            --neon-pink: #ff007f;
-            --neon-cyan: #00ffff;
-            --neon-green: #39ff14;
-            --dark-bg: #07090f;
-            --glass-bg: rgba(20, 20, 30, 0.6);
+            --pastel-pink: #ffb3c6;
+            --pastel-blue: #a0c4ff;
+            --pastel-green: #caffbf;
+            --pastel-yellow: #fdffb6;
+            --pastel-bg: #fdfbf7;
+            --text-dark: #4a4e69;
+            --white-glass: rgba(255, 255, 255, 0.8);
         }
 
         body {
-            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-bg); color: #ffffff; overflow-x: hidden; scroll-behavior: smooth;
+            margin: 0; font-family: 'Comic Sans MS', 'Segoe UI', Tahoma, sans-serif;
+            background-color: var(--pastel-bg); color: var(--text-dark); 
+            overflow-x: hidden; scroll-behavior: smooth;
         }
 
-        /* Navegación */
+        /* Navegación Pastel */
         nav {
-            position: fixed; top: 0; width: 100%; background: rgba(7, 9, 15, 0.9);
+            position: fixed; top: 0; width: 100%; background: var(--white-glass);
             backdrop-filter: blur(10px); display: flex; justify-content: center;
-            align-items: center; padding: 15px 0; z-index: 1000; box-shadow: 0 2px 20px rgba(255, 0, 127, 0.2); gap: 30px;
+            align-items: center; padding: 10px 0; z-index: 1000; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); gap: 30px;
         }
-        nav a { color: #fff; text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
-        nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
-        .nav-logo { height: 70px; border-radius: 15px; box-shadow: 0 0 15px var(--neon-pink); }
+        nav a { color: var(--text-dark); text-decoration: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; font-size: 1.1rem; }
+        nav a:hover { color: #ff758f; transform: scale(1.1); }
+        .nav-logo { height: 75px; border-radius: 15px; transition: 0.3s; }
+        .nav-logo:hover { transform: scale(1.05) rotate(-3deg); }
 
         #vista-principal { display: block; }
-        #vista-heladeria { display: none; padding-top: 120px; min-height: 100vh; text-align: center; }
+        #vista-heladeria { display: none; padding-top: 120px; min-height: 100vh; text-align: center; background: radial-gradient(circle, #fff5f5, #e6f9ff); }
 
-        /* Portada y Mascota */
+        /* Portada Tierna */
         .hero {
             min-height: 100vh; display: flex; align-items: center; justify-content: center;
             padding: 100px 20px 20px 20px; gap: 50px; flex-wrap: wrap;
+            background: radial-gradient(circle at top left, #fff0f5 0%, #e0f7fa 100%);
         }
         .hero-text { max-width: 500px; }
-        .hero-text h1 { font-size: 3.5rem; text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
+        .hero-text h1 { font-size: 4rem; color: #ff758f; margin-bottom: 10px; text-shadow: 2px 2px 0px #fff; }
+        .hero-text p { font-size: 1.4rem; color: #6c757d; font-weight: 500; }
         
-        .mascot-container { animation: walkIn 1.5s ease-out forwards, float 3s ease-in-out infinite alternate 1.5s; opacity: 0; }
-        .mascot-img { width: 350px; filter: drop-shadow(0 0 25px var(--neon-cyan)); }
+        .mascot-container { animation: float 3s ease-in-out infinite alternate; }
+        .mascot-img { width: 350px; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.1)); border-radius: 30px;}
 
-        @keyframes walkIn {
-            0% { transform: translateX(-150vw) rotate(-10deg); opacity: 0; }
-            80% { transform: translateX(10px) rotate(5deg); opacity: 1; }
-            100% { transform: translateX(0) rotate(0deg); opacity: 1; }
-        }
         @keyframes float { 0% { transform: translateY(0px); } 100% { transform: translateY(-20px); } }
 
-        /* Servicios y Secciones */
+        /* Botones Estilo Burbuja */
+        .btn-burbuja {
+            background: #ff758f; color: #fff; border: none;
+            padding: 15px 35px; font-size: 1.3rem; border-radius: 50px; cursor: pointer;
+            font-weight: bold; margin-top: 20px; transition: 0.3s;
+            box-shadow: 0 8px 15px rgba(255, 117, 143, 0.3); text-decoration: none; display: inline-block;
+        }
+        .btn-burbuja:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 12px 20px rgba(255, 117, 143, 0.4); }
+        .btn-azul { background: var(--pastel-blue); box-shadow: 0 8px 15px rgba(160, 196, 255, 0.4); color: var(--text-dark);}
+        .btn-azul:hover { background: #8bb4f7; box-shadow: 0 12px 20px rgba(160, 196, 255, 0.5); }
+
+        /* Servicios */
         section { padding: 80px 20px; text-align: center; }
-        h2.section-title { font-size: 2.5rem; margin-bottom: 50px; text-transform: uppercase; }
+        h2.section-title { font-size: 2.8rem; margin-bottom: 50px; color: var(--text-dark); }
         
         .services-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
         .service-card {
-            background: var(--glass-bg); padding: 30px; border-radius: 15px; width: 250px;
-            border: 2px solid; backdrop-filter: blur(5px); transition: 0.3s;
+            background: #fff; padding: 30px; border-radius: 30px; width: 250px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; border: 4px solid transparent;
         }
-        .card-pink { border-color: var(--neon-pink); box-shadow: 0 0 15px rgba(255,0,127,0.3); }
-        .card-cyan { border-color: var(--neon-cyan); box-shadow: 0 0 15px rgba(0,255,255,0.3); }
-        .card-purple { border-color: #9d00ff; box-shadow: 0 0 15px rgba(157,0,255,0.3); }
-        .service-card:hover { transform: translateY(-10px); box-shadow: 0 0 25px currentColor; }
+        .card-pink { border-color: var(--pastel-pink); }
+        .card-cyan { border-color: var(--pastel-blue); }
+        .card-yellow { border-color: var(--pastel-yellow); }
+        .service-card:hover { transform: translateY(-10px) rotate(2deg); }
 
-        .btn-neon {
-            background: transparent; color: var(--neon-green); border: 2px solid var(--neon-green);
-            padding: 15px 30px; font-size: 1.2rem; border-radius: 30px; cursor: pointer;
-            text-transform: uppercase; font-weight: bold; margin-top: 20px; transition: 0.3s;
-            box-shadow: 0 0 10px var(--neon-green); text-decoration: none; display: inline-block;
+        /* ---------------------------------------------------
+           JUEGO INTERACTIVO: EL MEZCLADOR DE SLIME
+        ----------------------------------------------------- */
+        .juego-slime-container {
+            background: #fff; border-radius: 30px; padding: 40px; max-width: 700px; margin: 0 auto;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05); border: 4px dashed var(--pastel-pink);
         }
-        .btn-neon:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 25px var(--neon-green); }
+        
+        .ingredientes { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .btn-ingrediente {
+            background: #f1f3f5; border: 2px solid #dee2e6; border-radius: 20px; padding: 15px;
+            font-size: 1.2rem; cursor: pointer; transition: 0.3s; font-weight: bold; color: var(--text-dark);
+        }
+        .btn-ingrediente:hover { transform: scale(1.1); background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .area-mezcla { position: relative; height: 250px; display: flex; justify-content: center; align-items: flex-end; }
+        
+        /* El Tazón */
+        .tazon {
+            width: 200px; height: 100px; background: rgba(255, 255, 255, 0.5);
+            border: 5px solid #ced4da; border-radius: 10px 10px 100px 100px;
+            position: relative; overflow: hidden; z-index: 2; transition: 0.3s;
+        }
+        .liquido {
+            position: absolute; bottom: 0; width: 100%; height: 0%; 
+            background: #e9ecef; transition: height 0.5s, background-color 0.5s;
+        }
 
-        /* Heladería y Toppings */
-        .flavors-container, .toppings-container {
-            display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px;
+        /* El Slime Animado (Oculto al inicio) */
+        .monstruo-slime {
+            width: 140px; height: 120px; background: var(--pastel-green);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Forma irregular de slime */
+            position: absolute; bottom: 20px; display: none; z-index: 3;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1);
+            animation: respirarSlime 2s infinite alternate, saltarSlime 1s ease-out;
         }
+        .monstruo-slime .cara { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); font-size: 35px; width: 100%; text-align: center; }
+
+        @keyframes temblar { 0% { transform: translateX(0); } 25% { transform: translateX(-5px) rotate(-5deg); } 50% { transform: translateX(5px) rotate(5deg); } 75% { transform: translateX(-5px) rotate(-5deg); } 100% { transform: translateX(0); } }
+        @keyframes respirarSlime { 0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; } 100% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; } }
+        @keyframes saltarSlime { 0% { bottom: -50px; transform: scaleY(0.5); } 50% { bottom: 100px; transform: scaleY(1.2); } 100% { bottom: 20px; transform: scaleY(1); } }
+
+        /* Heladería */
+        .flavors-container, .toppings-container { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 30px; }
         .flavor-item {
-            width: 150px; height: 150px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; border: 4px solid #fff;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.5); /* Efecto 3D en la selección */
+            width: 140px; height: 140px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; border: 5px solid #fff; color: var(--text-dark);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); background-color: #fff;
         }
-        .flavor-chocolate { background: radial-gradient(circle at 30% 30%, #8b5a2b, #3a2210); box-shadow: 0 0 20px #6b4321; }
-        .flavor-limon { background: radial-gradient(circle at 30% 30%, #bfff70, #5eb800); box-shadow: 0 0 20px #8cff2b; color: #000; }
-        .flavor-fresa { background: radial-gradient(circle at 30% 30%, #ff99cc, #cc0066); box-shadow: 0 0 20px #ff3399; }
-        .flavor-item:hover { transform: scale(1.1); }
+        .flavor-chocolate { background: #d4a373; color: #fff;}
+        .flavor-limon { background: #d8f3dc; }
+        .flavor-fresa { background: #ffc2d1; }
+        .flavor-item:hover { transform: scale(1.15) rotate(5deg); }
 
         .topping-btn {
-            background: var(--glass-bg); color: #fff; border: 2px solid var(--neon-cyan);
-            padding: 15px 25px; border-radius: 20px; cursor: pointer; font-size: 1.1rem; transition: 0.3s;
+            background: #fff; color: var(--text-dark); border: 3px solid var(--pastel-pink);
+            padding: 15px 25px; border-radius: 30px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; font-weight: bold;
         }
-        .topping-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 15px var(--neon-cyan); }
+        .topping-btn:hover { background: var(--pastel-pink); color: #fff; }
 
-        /* Animación y Realismo del Helado */
-        @keyframes jumpSpin {
-            0% { transform: translateY(0) rotate(0deg); }
-            30% { transform: translateY(-100px) rotate(180deg); }
-            50% { transform: translateY(0) rotate(360deg); }
-            70% { transform: translateY(-30px) rotate(360deg); }
-            100% { transform: translateY(0) rotate(360deg); }
-        }
-        @keyframes wave { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(30deg); } }
-
-        /* La bola de helado 3D */
-        .ice-cream-character {
-            width: 170px; height: 170px; 
-            border-radius: 50%; /* Bola redonda */
-            position: relative; margin: 40px auto 0; display: none;
-            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.4), inset 5px 5px 20px rgba(255,255,255,0.6);
-            z-index: 2;
-        }
-        /* Borde inferior del helado derritiéndose/ondulado */
-        .ice-cream-character::after {
-            content: ''; position: absolute; bottom: -10px; left: -5%; width: 110%; height: 35px;
-            background: inherit; border-radius: 30px;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.4), 0 10px 10px rgba(0,0,0,0.2); z-index: -1;
-        }
-
-        /* Elementos del personaje */
-        .eyes { font-size: 45px; position: absolute; top: 35%; left: 50%; transform: translateX(-50%); z-index: 10; text-shadow: 2px 2px 5px rgba(0,0,0,0.5); }
-        .arm { font-size: 45px; position: absolute; top: 40%; right: -35px; animation: wave 0.8s infinite alternate; z-index: 10; }
+        /* Helado 3D Animado */
+        @keyframes jumpSpin { 0% { transform: translateY(0) rotate(0deg); } 30% { transform: translateY(-100px) rotate(-180deg); } 50% { transform: translateY(0) rotate(-360deg); } 70% { transform: translateY(-30px) rotate(-360deg); } 100% { transform: translateY(0) rotate(-360deg); } }
         
-        /* Clase para las partículas de toppings esparcidas */
-        .topping-particle { position: absolute; font-size: 25px; z-index: 5; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.4)); }
+        /* BRAZO CORREGIDO AL LADO IZQUIERDO */
+        @keyframes waveLeft { 0%, 100% { transform: rotate(0deg); } 50% { transform: rotate(-30deg); } }
 
-        /* Cono tipo Galleta/Waffle */
+        .ice-cream-character {
+            width: 170px; height: 170px; border-radius: 50%; position: relative; margin: 40px auto 0; display: none;
+            box-shadow: inset -15px -15px 30px rgba(0,0,0,0.1), inset 5px 5px 20px rgba(255,255,255,0.8); z-index: 2;
+        }
+        .ice-cream-character::after {
+            content: ''; position: absolute; bottom: -10px; left: -5%; width: 110%; height: 35px; background: inherit; border-radius: 30px;
+            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.05); z-index: -1;
+        }
+
+        .eyes { font-size: 45px; position: absolute; top: 35%; left: 50%; transform: translateX(-50%); z-index: 10; }
+        
+        /* Ajuste de brazo a la izquierda */
+        .arm { 
+            font-size: 45px; position: absolute; top: 40%; 
+            left: -35px; /* Movido a la izquierda */
+            transform-origin: bottom right; /* Eje de rotación para que salude natural */
+            animation: waveLeft 0.8s infinite alternate; z-index: 10; 
+        }
+        
+        .topping-particle { position: absolute; font-size: 25px; z-index: 5; }
+
         .cono {
-            width: 110px; height: 150px;
-            background: #d4a373;
-            /* Textura de Waffle cruzada */
-            background-image: 
-                repeating-linear-gradient(45deg, rgba(139, 69, 19, 0.2) 0, rgba(139, 69, 19, 0.2) 3px, transparent 3px, transparent 15px),
-                repeating-linear-gradient(-45deg, rgba(139, 69, 19, 0.2) 0, rgba(139, 69, 19, 0.2) 3px, transparent 3px, transparent 15px);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            margin: -20px auto 0; /* Se mete debajo de la bola de helado */
-            display: none; position: relative; z-index: 1;
-            filter: drop-shadow(0 15px 15px rgba(0,0,0,0.6));
+            width: 110px; height: 150px; background: #e6ccb2;
+            background-image: repeating-linear-gradient(45deg, rgba(205, 133, 63, 0.1) 0, rgba(205, 133, 63, 0.1) 3px, transparent 3px, transparent 15px), repeating-linear-gradient(-45deg, rgba(205, 133, 63, 0.1) 0, rgba(205, 133, 63, 0.1) 3px, transparent 3px, transparent 15px);
+            clip-path: polygon(0 0, 100% 0, 50% 100%); margin: -20px auto 0; display: none; position: relative; z-index: 1; filter: drop-shadow(0 15px 15px rgba(0,0,0,0.2));
         }
 
-        @media (max-width: 768px) {
-            nav { flex-wrap: wrap; gap: 15px; padding: 10px; }
-            .hero { flex-direction: column; text-align: center; margin-top: 50px;}
-            .hero-text { text-align: center; }
-        }
+        @media (max-width: 768px) { nav { flex-wrap: wrap; gap: 10px; padding: 10px; } .hero { text-align: center; margin-top: 50px;} .hero-text { text-align: center; } .mascot-img { width: 280px; } }
     </style>
 </head>
 <body>
@@ -157,9 +186,10 @@
     <div id="vista-principal">
         <header id="inicio" class="hero">
             <div class="hero-text">
-                <h1>COLORÉ LAB<br>& KIDS</h1>
-                <p style="font-size: 1.2rem; color: #ccc;">Donde la imaginación crea diversión sin límites.</p>
-                <button class="topping-btn" onclick="mostrarHeladeria()">Ir a la Heladería</button>
+                <h1>COLORÉ<br>LAB & BAR</h1>
+                <p>Donde la imaginación, los colores y la ciencia se mezclan para crear diversión sin límites. ¡Atrévete a crear!</p>
+                <button class="btn-burbuja" onclick="irASeccion('juego-slime')">¡Hacer Slime!</button>
+                <button class="btn-burbuja btn-azul" onclick="mostrarHeladeria()">Ir a Heladería 🍦</button>
             </div>
             <div class="mascot-container">
                 <img src="image0.png" alt="Mascota" class="mascot-img">
@@ -167,32 +197,61 @@
         </header>
 
         <section id="servicios">
-            <h2 class="section-title" style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">Nuestros Servicios</h2>
+            <h2 class="section-title">Nuestros Servicios Mágicos</h2>
             <div class="services-grid">
                 <div class="service-card card-pink">
-                    <h3>Laboratorio de Slime</h3>
+                    <h3 style="color: #ff758f;">Laboratorio de Slime</h3>
                     <p>Crea tu propia masa mágica. Escoge colores, texturas, brillos y accesorios para un slime único.</p>
                 </div>
                 <div class="service-card card-cyan">
-                    <h3>Atención a Niños</h3>
+                    <h3 style="color: #6495ed;">Atención a Niños</h3>
                     <p>Cuidado y entretenimiento con actividades sensoriales y creativas pensadas para los más pequeños.</p>
                 </div>
-                <div class="service-card card-purple">
-                    <h3>Fiestas Creativas</h3>
+                <div class="service-card card-yellow">
+                    <h3 style="color: #d4a373;">Fiestas Creativas</h3>
                     <p>Llevamos nuestro taller a tus eventos infantiles para una experiencia inolvidable y súper divertida.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Nueva Sección de Contacto SÓLO con WhatsApp -->
-        <section id="contacto" style="background: radial-gradient(circle at bottom, #1a0011 0%, var(--dark-bg) 70%);">
-            <h2 class="section-title" style="color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink);">Reserva tu Evento</h2>
-            <p style="font-size: 1.2rem; color: #ccc; max-width: 600px; margin: 0 auto 40px;">
-                ¿Quieres que llevemos la magia del laboratorio de slime o nuestra barra de helados a tu próxima fiesta? ¡Escríbenos y lo hacemos realidad!
+        <!-- NUEVO JUEGO DE SLIME -->
+        <section id="juego-slime" style="background: var(--pastel-yellow);">
+            <h2 class="section-title">🧪 El Mezclador Mágico</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 30px;">Agrega los ingredientes al tazón y presiona Mezclar para ver la magia.</p>
+            
+            <div class="juego-slime-container">
+                <!-- Botones de ingredientes -->
+                <div class="ingredientes">
+                    <button class="btn-ingrediente" onclick="agregarBase()">🧴 Pegamento</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('#ffc2d1')">💖 Gotas Rosas</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('#caffbf')">💚 Gotas Verdes</button>
+                    <button class="btn-ingrediente" onclick="agregarColor('#a0c4ff')">💙 Gotas Azules</button>
+                    <button class="btn-ingrediente" onclick="agregarBrillos()">✨ Brillos</button>
+                </div>
+
+                <!-- Tazón y Animación -->
+                <div class="area-mezcla">
+                    <div class="tazon" id="el-tazon">
+                        <div class="liquido" id="liquido-tazon"></div>
+                    </div>
+                    <!-- Slime que salta -->
+                    <div class="monstruo-slime" id="monstruo-resultado">
+                        <div class="cara" id="cara-slime">😃</div>
+                    </div>
+                </div>
+                
+                <button class="btn-burbuja" style="margin-top: 30px; width: 100%;" onclick="mezclarSlime()">🪄 ¡MEZCLAR!</button>
+            </div>
+        </section>
+
+        <!-- Contacto con WhatsApp -->
+        <section id="contacto" style="background: #fff0f5;">
+            <h2 class="section-title">Reserva tu Evento</h2>
+            <p style="font-size: 1.3rem; max-width: 600px; margin: 0 auto 40px; font-weight: bold;">
+                ¿Quieres que llevemos la magia del laboratorio de slime o nuestra barra de helados a tu próxima fiesta? ¡Escríbenos!
             </p>
-            <!-- REEMPLAZA EL NÚMERO 529510000000 POR EL TUYO -->
-            <a href="https://wa.me/529514082944?text=¡Hola!%20Me%20gustaría%20cotizar%20un%20evento%20con%20Coloré." 
-               target="_blank" class="btn-neon" style="background: var(--neon-green); color: #000; padding: 20px 40px; font-size: 1.5rem; border-radius: 50px;">
+            <a href="https://wa.me/529510000000?text=¡Hola!%20Me%20gustaría%20cotizar%20un%20evento%20infantil%20con%20Coloré." 
+               target="_blank" class="btn-burbuja" style="background: #a0c4ff; color: var(--text-dark); padding: 20px 50px; font-size: 1.5rem;">
                 💬 Enviar WhatsApp
             </a>
         </section>
@@ -200,19 +259,17 @@
 
     <!-- VISTA HELADERÍA -->
     <div id="vista-heladeria">
-        <h2 style="color: #fff; text-shadow: 0 0 15px var(--neon-pink); font-size: 2.5rem;">BARRA DE SABORES</h2>
-        <p id="instruccion" style="font-size: 1.2rem; color: #ccc;">1. Elige tu sabor favorito</p>
+        <h2 style="color: #ff758f; font-size: 3rem; text-shadow: 2px 2px #fff; margin-bottom: 10px;">BARRA DE SABORES</h2>
+        <p id="instruccion" style="font-size: 1.3rem; font-weight: bold;">1. Elige tu sabor favorito</p>
         
-        <!-- Paso 1: Sabores -->
         <div class="flavors-container" id="seccion-sabores">
-            <div class="flavor-item flavor-chocolate" onclick="seleccionarSabor('Chocolate', 'radial-gradient(circle at 30% 30%, #8b5a2b, #3a2210)')">Chocolate</div>
-            <div class="flavor-item flavor-limon" onclick="seleccionarSabor('Limón', 'radial-gradient(circle at 30% 30%, #bfff70, #5eb800)')">Limón</div>
-            <div class="flavor-item flavor-fresa" onclick="seleccionarSabor('Fresa', 'radial-gradient(circle at 30% 30%, #ff99cc, #cc0066)')">Fresa</div>
+            <div class="flavor-item flavor-chocolate" onclick="seleccionarSabor('Chocolate', '#d4a373')">Chocolate</div>
+            <div class="flavor-item flavor-limon" onclick="seleccionarSabor('Limón', '#d8f3dc')">Limón</div>
+            <div class="flavor-item flavor-fresa" onclick="seleccionarSabor('Fresa', '#ffc2d1')">Fresa</div>
         </div>
 
-        <!-- Paso 2: Toppings -->
         <div id="seccion-toppings" style="display: none; margin-top: 40px;">
-            <p style="font-size: 1.2rem; color: var(--neon-cyan);">2. ¡Agrega tus Toppings!</p>
+            <p style="font-size: 1.3rem; color: #6495ed; font-weight: bold;">2. ¡Agrega tus Toppings!</p>
             <div class="toppings-container">
                 <button class="topping-btn" onclick="crearHelado('Galleta', '🍪')">🍪 Galleta</button>
                 <button class="topping-btn" onclick="crearHelado('Chispas', '🍫')">🍫 Chispas</button>
@@ -221,37 +278,28 @@
             </div>
         </div>
 
-        <!-- Paso 3: El Helado Animado y Realista -->
         <div id="resultado-helado" style="display: none; margin-top: 40px; padding-bottom: 50px;">
-            
             <div id="ice-cream-char" class="ice-cream-character">
                 <div class="eyes">👀</div>
                 <div class="arm">👋</div>
-                <!-- Los toppings se inyectarán aquí vía JavaScript -->
             </div>
             <div class="cono" id="cono-visual"></div>
             
-            <h3 id="helado-msg" style="color: var(--neon-green); margin-top: 40px; font-size: 1.8rem; text-shadow: 0 0 10px rgba(57, 255, 20, 0.5);"></h3>
+            <h3 id="helado-msg" style="color: #ff758f; margin-top: 40px; font-size: 2rem; background: rgba(255,255,255,0.7); display: inline-block; padding: 10px 20px; border-radius: 20px;"></h3>
             
             <div style="margin-top: 30px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
-                <button class="topping-btn" style="border-color: var(--neon-pink);" onclick="reiniciarHeladeria()">🔄 Crear otro helado</button>
-                <!-- Botón opcional para pedir ese helado específico -->
-                <a id="btn-pedir-helado" href="#" target="_blank" class="btn-neon" style="margin-top: 0; padding: 15px 25px;">🍦 ¡Quiero pedir este!</a>
+                <button class="btn-burbuja" style="background: #fff; color: #ff758f; border: 2px solid #ff758f;" onclick="reiniciarHeladeria()">🔄 Crear otro helado</button>
+                <a id="btn-pedir-helado" href="#" target="_blank" class="btn-burbuja btn-azul" style="margin-top: 0;">🍦 ¡Quiero pedir este!</a>
             </div>
         </div>
     </div>
 
     <script>
-        let saborElegido = '';
-        let colorSabor = '';
-
-        // Función para volver a la página principal y hacer scroll automático a la sección
+        /* ================= NAVEGACIÓN ================= */
         function irASeccion(id) {
             document.getElementById('vista-heladeria').style.display = 'none';
             document.getElementById('vista-principal').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-            }, 100);
+            setTimeout(() => { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }, 100);
         }
 
         function mostrarHeladeria() {
@@ -260,9 +308,83 @@
             window.scrollTo(0, 0);
         }
 
+        /* ================= JUEGO DE SLIME ================= */
+        let nivelPegamento = 0;
+        let colorSlimeActual = "#ffffff";
+        let tieneBrillos = false;
+
+        function agregarBase() {
+            nivelPegamento = 60;
+            const liquido = document.getElementById('liquido-tazon');
+            liquido.style.height = nivelPegamento + '%';
+            liquido.style.backgroundColor = colorSlimeActual;
+        }
+
+        function agregarColor(colorCode) {
+            if (nivelPegamento === 0) { alert("¡Primero agrega el pegamento! 🧴"); return; }
+            colorSlimeActual = colorCode;
+            document.getElementById('liquido-tazon').style.backgroundColor = colorCode;
+        }
+
+        function agregarBrillos() {
+            if (nivelPegamento === 0) { alert("¡Primero agrega el pegamento! 🧴"); return; }
+            tieneBrillos = true;
+            document.getElementById('liquido-tazon').style.backgroundImage = "radial-gradient(#fff 15%, transparent 16%), radial-gradient(#fff 15%, transparent 16%)";
+            document.getElementById('liquido-tazon').style.backgroundSize = "20px 20px";
+            document.getElementById('liquido-tazon').style.backgroundPosition = "0 0, 10px 10px";
+        }
+
+        function mezclarSlime() {
+            if (nivelPegamento === 0) { alert("¡El tazón está vacío! Agrega ingredientes primero."); return; }
+            
+            const tazon = document.getElementById('el-tazon');
+            const monstruo = document.getElementById('monstruo-resultado');
+            const cara = document.getElementById('cara-slime');
+            
+            // Ocultar monstruo por si ya había uno
+            monstruo.style.display = 'none';
+            
+            // Animación de temblar tazón
+            tazon.style.animation = "temblar 0.5s infinite";
+            
+            setTimeout(() => {
+                tazon.style.animation = "none";
+                tazon.style.display = "none"; // Desaparece el tazón
+                
+                // Configurar monstruo
+                monstruo.style.backgroundColor = colorSlimeActual;
+                if(tieneBrillos) {
+                    monstruo.style.backgroundImage = "radial-gradient(rgba(255,255,255,0.8) 15%, transparent 16%), radial-gradient(rgba(255,255,255,0.8) 15%, transparent 16%)";
+                    monstruo.style.backgroundSize = "20px 20px";
+                    monstruo.style.backgroundPosition = "0 0, 10px 10px";
+                    cara.innerText = "🤩"; // Cara emocionada si tiene brillos
+                } else {
+                    monstruo.style.backgroundImage = "none";
+                    cara.innerText = "😃";
+                }
+                
+                // Mostrar monstruo saltando
+                monstruo.style.display = "block";
+                
+                // Reiniciar juego después de 5 segundos
+                setTimeout(() => {
+                    monstruo.style.display = "none";
+                    tazon.style.display = "block";
+                    nivelPegamento = 0;
+                    tieneBrillos = false;
+                    colorSlimeActual = "#ffffff";
+                    document.getElementById('liquido-tazon').style.height = "0%";
+                    document.getElementById('liquido-tazon').style.backgroundImage = "none";
+                }, 6000);
+                
+            }, 1500); // Tiembla por 1.5 segundos
+        }
+
+        /* ================= HELADERÍA ================= */
+        let saborElegido = ''; let colorSabor = '';
+
         function seleccionarSabor(sabor, color) {
-            saborElegido = sabor;
-            colorSabor = color;
+            saborElegido = sabor; colorSabor = color;
             document.getElementById('seccion-toppings').style.display = 'block';
             document.getElementById('instruccion').innerText = `Sabor seleccionado: ${sabor} 🍨`;
             document.getElementById('resultado-helado').style.display = 'none';
@@ -273,51 +395,32 @@
             const cono = document.getElementById('cono-visual');
             const msg = document.getElementById('helado-msg');
             
-            // Colorear el helado
             character.style.background = colorSabor;
-            
-            // Limpiar toppings anteriores (por si eligen crear otro sin recargar)
             const toppingsViejos = character.querySelectorAll('.topping-particle');
             toppingsViejos.forEach(t => t.remove());
 
-            // Crear 6-8 piezas de topping esparcidas aleatoriamente por la bola de helado
-            const cantidadToppings = Math.floor(Math.random() * 3) + 6; // Entre 6 y 8
+            const cantidadToppings = Math.floor(Math.random() * 3) + 6;
             for(let i = 0; i < cantidadToppings; i++) {
                 let particula = document.createElement('div');
-                particula.className = 'topping-particle';
-                particula.innerText = toppingEmoji;
-                
-                // Posiciones aleatorias dentro de la bola (dejando margen en los bordes)
-                let topPos = Math.random() * 60 + 5; // Entre 5% y 65% de altura
-                let leftPos = Math.random() * 70 + 10; // Entre 10% y 80% de ancho
-                let rotacion = Math.random() * 360;
-                let escala = Math.random() * 0.4 + 0.6; // Para que varíen en tamaño
-                
-                particula.style.top = topPos + '%';
-                particula.style.left = leftPos + '%';
+                particula.className = 'topping-particle'; particula.innerText = toppingEmoji;
+                let topPos = Math.random() * 60 + 5; let leftPos = Math.random() * 70 + 10;
+                let rotacion = Math.random() * 360; let escala = Math.random() * 0.4 + 0.6;
+                particula.style.top = topPos + '%'; particula.style.left = leftPos + '%';
                 particula.style.transform = `rotate(${rotacion}deg) scale(${escala})`;
-                
                 character.appendChild(particula);
             }
             
-            // Mostrar elementos
             document.getElementById('resultado-helado').style.display = 'block';
-            character.style.display = 'block';
-            cono.style.display = 'block';
+            character.style.display = 'block'; cono.style.display = 'block';
             msg.innerText = `¡Hola! Soy tu helado de ${saborElegido} con ${toppingNombre} ✨`;
             
-            // Configurar botón de WhatsApp personalizado para el helado
             const btnPedir = document.getElementById('btn-pedir-helado');
             const mensajeHelado = `¡Hola! Estaba jugando en su página y me gustaría pedir un helado de ${saborElegido} con ${toppingNombre}.`;
-            // REEMPLAZA ESTE NÚMERO TAMBIÉN
             btnPedir.href = `https://wa.me/529510000000?text=${encodeURIComponent(mensajeHelado)}`;
 
-            // Forzar el reinicio de la animación de salto
-            character.style.animation = 'none';
-            void character.offsetWidth; 
+            character.style.animation = 'none'; void character.offsetWidth; 
             character.style.animation = 'jumpSpin 1.5s ease-out';
             
-            // Hacer scroll hacia el resultado final
             document.getElementById('resultado-helado').scrollIntoView({ behavior: 'smooth' });
         }
 
